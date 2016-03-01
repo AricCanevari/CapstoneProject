@@ -25,7 +25,6 @@ while (a < 2):
 	if (a == 1):
 		Client.send("true")
 		Client.send(clientport)
-		ClientAIP = ClientIP
 	if (a == 2):
 		Client.send("false")
 		Client.send(ClientAIP)
