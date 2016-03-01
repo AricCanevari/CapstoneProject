@@ -43,7 +43,7 @@ if (Incomming == "true"):
   	x = "Connected to: " + Address
   	Client.send(x)
   	ServerS.close()
-if (Incomming == "false):
+if (Incomming == "false"):
   ServerAddr = s.recv(1024)
   Port = s.recv
   s.close()
