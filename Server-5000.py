@@ -11,7 +11,7 @@ s.close()
 Port = 5000
 ServerS.bind((Address, Port))
 a = 0 
-clientport = 5005
+clientport = "5005"
 
 ServerS.listen(5)
 while (a < 2):
