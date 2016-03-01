@@ -1,40 +1,18 @@
 # CapstoneProject
 
 Goal:
-Create a messaging Client/Server architecture that is secured using public key encryption. 
-	-Needs to be secure over the network
-	-Files on the server and client need to be secure
+Create a messaging Client/Server architecture that is secured using encryption. 
 
-Possible Interactions:
-	-Account Creation
-	-Log in / Start program
-	-Invite Client to chat
-	-Accept invite to chat
-	-Invite Client to connect accounts or “Friend” another user
-	-Accept invite to connect accounts
-	-Send Message
-	-Refresh available users
+Server used to:
+	- Manage client connections
+		-Client A asks to connect to Client B. When Client B asks to connect to Client A, messaging
+		is allowed using a symetric key. Client A will host the connection
+	- Manage user accounts
+		-Users Cridentials
+	
 
-Start Program / Log in
-	-
-	
-Account Creation
-	-
-	
-Invite Client to Chat
-	-
-	
-Accept Invite to Chat
-	-
-	
-Invite Client to connect accounts or “Friend” another user
-	-
 
-Accept invite to connect accounts
-	-
 
-Send Message
-	-
-	
-Refresh available users
-	-
+
+
+
