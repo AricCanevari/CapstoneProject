@@ -11,9 +11,10 @@ s.close()
 Port = 5000
 ServerS.bind((Address, Port))
 a = 0 
+clientport = 5005
 
 ServerS.listen(5)
-while (a < 1):
+while (a < 2):
 	Client, ClientAddr = ServerS.accept()
 	print "Got Connection from", ClientAddr
 	x = "Connected to: " + Address
@@ -21,7 +22,14 @@ while (a < 1):
 	ClientIP = Client.recv(1024)
 	ClientUN = Client.recv(1024)
 	ClientCT = Client.recv(1024)
-	
+	if (a == 1):
+		Client.send("true")
+		Client.send(clientport)
+		ClientAIP = ClientIP
+	if (a == 2):
+		Client.send("false")
+		Client.send(ClientAIP)
+		Client.send(clientport)
 	Client.close()
 	a=a+1
 	
