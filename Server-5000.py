@@ -22,10 +22,10 @@ while (a < 2):
 	ClientIP = Client.recv(1024)
 	ClientUN = Client.recv(1024)
 	ClientCT = Client.recv(1024)
-	if (a == 1):
+	if (a == 0):
 		Client.send("true")
 		Client.send(clientport)
-	if (a == 2):
+	if (a == 1):
 		Client.send("false")
 		Client.send(ClientAIP)
 		Client.send(clientport)
