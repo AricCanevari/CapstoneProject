@@ -37,12 +37,13 @@ if (Incomming == "true"):
   ServerS.bind((Address, Port))
   a = 0 
   ServerS.listen(5)
-  while (a < 2):
+  while (a < 1):
   	Client, ClientAddr = ServerS.accept()
   	print "Got Connection from", ClientAddr
   	x = "Connected to: " + Address
   	Client.send(x)
   	ServerS.close()
+  	a = a + 1
 if (Incomming == "false"):
   ServerAddr = s.recv(1024)
   Port = s.recv
