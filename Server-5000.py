@@ -22,11 +22,16 @@ while (a < 2):
 	ClientIP = Client.recv(1024)
 	ClientUN = Client.recv(1024)
 	ClientCT = Client.recv(1024)
+	print ClientIP
+	print ClientUN
+	print ClientCT
 	if (a == 0):
+		print "Entered if a = 0"
 		Client.send("true")
 		Client.send(clientport)
 		ClientAIP = ClientIP
 	if (a == 1):
+		print "Entered if a = 1"
 		Client.send("false")
 		Client.send(ClientAIP)
 		Client.send(clientport)
