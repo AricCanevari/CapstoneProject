@@ -25,6 +25,7 @@ s.send(UserName)
 s.send(ConnectTo)
 Incomming = s.recv(1024)
 if (Incomming == "true"):
+  print "Entered Server Portion of Code"
   Port = s.recv(1024)
   s.close()
   ServerS = socket.socket()
@@ -45,6 +46,7 @@ if (Incomming == "true"):
   	ServerS.close()
   	a = a + 1
 if (Incomming == "false"):
+  print "Entered Client Portion of Code"
   ServerAddr = s.recv(1024)
   Port = s.recv
   s.close()
