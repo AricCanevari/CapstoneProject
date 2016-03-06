@@ -22,8 +22,11 @@ s.connect((ServerAddr, Port))
 Incomming = s.recv(1024)
 print Incomming
 s.send(Address)
+print "Address sent"
 s.send(UserName)
+print "User Name Sent"
 s.send(ConnectTo)
+print "Other User sent"
 Incomming = s.recv(1024)
 if (Incomming == "true"):
   print "Entered Server Portion of Code"
