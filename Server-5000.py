@@ -28,13 +28,13 @@ while (a < 2):
 #	print "ClientCT recv"
 	if (a == 0):
 		print "Entered if a = 0"
-		outgoing = 1
+		outgoing = "true"
 		Client.send(outgoing)
 		Client.send(clientport)
 		ClientAIP = ClientIP
 	if (a == 1):
 		print "Entered if a = 1"
-		outgoing = 0
+		outgoing = "false"
 		Client.send(outgoing)
 		Client.send(ClientAIP)
 		Client.send(clientport)
