@@ -49,7 +49,7 @@ if (Incomming == "false"):
   ServerAddr = s.recv(1024)
   Port = s.recv
   s.close()
-  s = socket.socket()
+  s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
  
   s.connect((ServerAddr, Port))
   Incomming = s.recv(1024)
