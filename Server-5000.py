@@ -24,16 +24,18 @@ while (a < 2):
 	print "ClientIP recv"
 	ClientUN = Client.recv(1024)
 	print "ClientUN recv"
-	#ClientCT = Client.recv(1024) #Code is freezing here? why?? removing to test
-	#print "ClientCT recv"
+	ClientCT = Client.recv(1024) #Code is freezing here? why?? removing to test
+	print "ClientCT recv"
 	if (a == 0):
 		print "Entered if a = 0"
-		Client.send("true")
+		outgoing = "true"
+		Client.send(outgoing)
 		Client.send(clientport)
 		ClientAIP = ClientIP
 	if (a == 1):
 		print "Entered if a = 1"
-		Client.send("false")
+		outgoing = "false"
+		Client.send(outgoing)
 		Client.send(ClientAIP)
 		Client.send(clientport)
 	Client.close()
