@@ -27,8 +27,9 @@ s.send(UserName)
 print "User Name Sent"
 #s.send(ConnectTo)  #removing to test
 #print "Other User sent"
+check = "true"
 Incomming = s.recv(1024)
-if (Incomming == 1):
+if (Incomming == check):
   print "Entered Server Portion of Code"
   Port = s.recv(1024)
   s.close()
@@ -44,7 +45,7 @@ if (Incomming == 1):
   	Client.send(x)
   	ServerS.close()
   	a = a + 1
-if (Incomming == 0):
+else:
   print "Entered Client Portion of Code"
   ServerAddr = s.recv(1024)
   Port = s.recv
