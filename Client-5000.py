@@ -14,7 +14,7 @@ UserName = raw_input(Prompt)
 print "Connect to?"
 ConnectTo = raw_input(Prompt)
 
-s = socket.socket()
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ServerAddr = "67.241.38.178" 
 Port = 5000
 
@@ -32,13 +32,8 @@ if (Incomming == "true"):
   print "Entered Server Portion of Code"
   Port = s.recv(1024)
   s.close()
-  ServerS = socket.socket()
   
-  s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-  s.connect(("gmail.com",80))
-  Address = (s.getsockname()[0])
-  s.close()
-
+  ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   ServerS.bind((Address, Port))
   a = 0 
   ServerS.listen(5)
