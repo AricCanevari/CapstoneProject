@@ -24,7 +24,7 @@ while (a < 2):
 	print "ClientIP recv"
 	ClientUN = Client.recv(1024)
 	print "ClientUN recv"
-	ClientCT = Client.recv(1024)
+	ClientCT = Client.recv(2048)
 	print "ClientCT recv"
 	if (a == 0):
 		print "Entered if a = 0"
