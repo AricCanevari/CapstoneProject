@@ -2,7 +2,7 @@
 #Test from Louie
 import socket
 
-ServerS = socket.socket()
+ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("gmail.com",80))
