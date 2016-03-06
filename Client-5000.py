@@ -31,7 +31,7 @@ check = "true"
 Incomming = s.recv(1024)
 print Incomming 
 print check
-if (Incomming == check):
+if Incomming == check:
   print "Entered Server Portion of Code"
   Port = s.recv(1024)
   s.close()
