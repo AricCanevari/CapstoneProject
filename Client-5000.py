@@ -37,6 +37,7 @@ if Incomming == check:
   s.send(outgoing)
   Port = s.recv(1024)
   Port = int(Port)
+  print Port
   s.close()
   
   ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -63,7 +64,7 @@ else:
   s.close()
   
   cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  cs.connect((ServerAddr, Port))
+  cs.connect((ServerAddr, Port)) # not connecting to server? Why??? Port and IP are good. Firewall?
   print "Socket Created"
   Incomming = cs.recv(1024)
   print Incomming
