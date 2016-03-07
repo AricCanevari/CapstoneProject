@@ -64,7 +64,7 @@ else:
   s.close()
   
   cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  cs.connect((ServerAddr, Port)) # not connecting to server? Why??? Port and IP are good. Firewall?
+  cs.connect((ServerAddr, Port)) # Make sure to check Firewall
   print "Socket Created"
   Incomming = cs.recv(1024)
   print Incomming
