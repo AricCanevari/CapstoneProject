@@ -36,7 +36,7 @@ if Incomming == check:
   print outgoing
   s.send(outgoing)
   Port = s.recv(1024)
-  int(Port)
+  Port = int(Port)
   s.close()
   
   ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
