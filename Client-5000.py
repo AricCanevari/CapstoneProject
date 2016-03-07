@@ -55,13 +55,16 @@ else:
   print outgoing
   s.send(outgoing)
   ServerAddr = s.recv(1024)
+  print ServerAddr
   s.send(outgoing)
   Port = s.recv(1024)
   Port = int(Port)
+  print Port
   s.close()
   
   cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   cs.connect((ServerAddr, Port))
+  print "Socket Created"
   Incomming = cs.recv(1024)
   print Incomming
   cs.close()
