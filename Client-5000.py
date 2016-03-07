@@ -51,12 +51,16 @@ if Incomming == check:
   	ServerS.close()
   	a = a + 1
 else:
-  print "Entered Client Portion of Code"
+  outgoing = "Client Entered Client Portion of Code"
+  print outgoing
+  s.send(outgoing)
   ServerAddr = s.recv(1024)
-  Port = s.recv
+  s.send(outgoing)
+  Port = s.recv(1024)
+  Port = int(Port)
   s.close()
+  
   cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
- 
   cs.connect((ServerAddr, Port))
   Incomming = cs.recv(1024)
   print Incomming
