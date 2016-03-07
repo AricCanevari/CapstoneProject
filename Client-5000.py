@@ -33,6 +33,7 @@ print Incomming
 print check
 if Incomming == check:
   outgoing = "Client Entered Server Portion of Code"
+  print outgoing
   s.send(outgoing)
   Port = s.recv(1024)
   s.close()
@@ -53,10 +54,10 @@ else:
   ServerAddr = s.recv(1024)
   Port = s.recv
   s.close()
-  s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
  
-  s.connect((ServerAddr, Port))
-  Incomming = s.recv(1024)
+  cs.connect((ServerAddr, Port))
+  Incomming = cs.recv(1024)
   print Incomming
-  s.close()
+  cs.close()
 print "All sockets Closed"
