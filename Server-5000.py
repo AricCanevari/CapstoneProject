@@ -30,6 +30,7 @@ while (a < 2):
 		print "Entered if a = 0"
 		outgoing = "true"
 		Client.send(outgoing)
+		Client.recv(1024)
 		Client.send(clientport)
 		ClientAIP = ClientIP
 	if (a == 1):
