@@ -37,7 +37,9 @@ while (a < 2):
 		print "Entered if a = 1"
 		outgoing = "false"
 		Client.send(outgoing)
+		print Client.recv(1024)
 		Client.send(ClientAIP)
+		print Client.recv(1024)
 		Client.send(clientport)
 	Client.close()
 	a=a+1
