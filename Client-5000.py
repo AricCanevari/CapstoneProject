@@ -32,7 +32,8 @@ Incomming = s.recv(1024)
 print Incomming 
 print check
 if Incomming == check:
-  print "Entered Server Portion of Code"
+  outgoing = "Client Entered Server Portion of Code"
+  s.send(outgoing)
   Port = s.recv(1024)
   s.close()
   
