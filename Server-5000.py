@@ -11,7 +11,7 @@ ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #s.connect(("gmail.com",80))
 #Address = (s.getsockname()[0])
 #s.close()
-Address = call(["wget http://people.sunyit.edu/~greenli/ip.php -qO -"])
+Address = call(["wget", "http://people.sunyit.edu/~greenli/ip.php", "-qO", "-"])
 
 Port = 5000
 ServerS.bind((Address, Port))
