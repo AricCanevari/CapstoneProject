@@ -6,7 +6,7 @@ import subprocess
 #Creates the Server Socket for messaging
 ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-Creates a connection to get public address of itself
+#Creates a connection to get public address of itself
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("gmail.com",80))
 Address = (s.getsockname()[0])
