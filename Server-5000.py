@@ -1,15 +1,17 @@
 #!/usr/bin/python
 import socket
+from subprocess import call
 
 
 #Creates the Server Socket for messaging
 ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 #Creates a connection to get public address of itself
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.connect(("gmail.com",80))
-Address = (s.getsockname()[0])
-s.close()
+#s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+#s.connect(("gmail.com",80))
+#Address = (s.getsockname()[0])
+#s.close()
+Address = call([wget http://people.sunyit.edu/~greenli/ip.php -qO -])
 
 Port = 5000
 ServerS.bind((Address, Port))
