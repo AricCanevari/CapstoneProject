@@ -18,9 +18,9 @@ ConnectTo = raw_input(Prompt)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ServerAddr = "67.241.38.178" 
-#Port = 5000
+Port = 5000
 
-s.connect((ServerAddr, ''))
+s.connect((ServerAddr, Port))
 Incomming = s.recv(1024)
 print Incomming
 s.send(Address)
