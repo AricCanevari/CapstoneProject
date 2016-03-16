@@ -6,15 +6,15 @@ import socket
 #Address = (s.getsockname()[0])
 #s.close()
 
-import urllib
 import re
+import requests
 
-print "we will try to open this url, in order to get IP Address"
 url = "http://checkip.dyndns.org"
-print url
-request = urllib.urlopen(url).read()
-theIP = re.findall(r"d{1,3}.d{1,3}.d{1,3}.d{1,3}", request)
-print "your IP Address is: ",  theIP
+request = requests.get(url)
+clean = request.text.split(': ', 1)[1]
+your_ip = clean.split('</body></html>', 1)[0]
+
+print your_ip
 
 
 print "Enter User Name"
