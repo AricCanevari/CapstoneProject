@@ -1,9 +1,11 @@
 #!/usr/bin/python
-#Test from Louie
 import socket
 
+
+#Creates the Server Socket for messaging
 ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+#Creates a connection to get public address of itself
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("gmail.com",80))
 Address = (s.getsockname()[0])
@@ -18,7 +20,7 @@ ServerS.listen(5)
 while (a < 2):
 	Client, ClientAddr = ServerS.accept()
 	print "Got Connection from", ClientAddr
-	x = "Connected to: " + Address
+	x = "Connected to Server"
 	Client.send(x)
 	ClientIP = Client.recv(1024)
 	print "ClientIP recv"
@@ -43,6 +45,5 @@ while (a < 2):
 		Client.send(clientport)
 	Client.close()
 	a=a+1
-	
 ServerS.close()
 
