@@ -7,7 +7,7 @@ from subprocess import call
 #Address = (s.getsockname()[0])
 #s.close()
 
-Address = call([wget http://people.sunyit.edu/~greenli/ip.php -qO -])
+Address = subprocess.check_output("wget http://people.sunyit.edu/~greenli/ip.php -qO -", shell=True)
 
 print "Enter User Name"
 Prompt = '>'
