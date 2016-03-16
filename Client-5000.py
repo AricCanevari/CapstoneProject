@@ -7,6 +7,7 @@ import subprocess
 #Address = (s.getsockname()[0])
 #s.close()
 
+#Gets client external address
 Address = subprocess.check_output("wget http://people.sunyit.edu/~greenli/ip.php -qO -", shell=True)
 
 print "Enter User Name"
@@ -17,7 +18,7 @@ print "Connect to?"
 ConnectTo = raw_input(Prompt)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-ServerAddr = "67.241.38.178" 
+ServerAddr = "67.241.38.178"
 Port = 5000
 
 s.connect((ServerAddr, Port))
