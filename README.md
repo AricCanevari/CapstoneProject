@@ -9,7 +9,10 @@ Server used to:
 		is allowed using a symetric key. Client A will host the connection
 	- Manage user accounts
 		-Users Cridentials
-	
+
+Parts done:
+
+Parts to work on:
 
 
 
