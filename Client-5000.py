@@ -1,11 +1,21 @@
 #!/usr/bin/python
-#Test from Louie
 import socket
 
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.connect(("gmail.com",80))
-Address = (s.getsockname()[0])
-s.close()
+#s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+#s.connect(("gmail.com",80))
+#Address = (s.getsockname()[0])
+#s.close()
+
+import urllib
+import re
+
+print "we will try to open this url, in order to get IP Address"
+url = "http://checkip.dyndns.org"
+print url
+request = urllib.urlopen(url).read()
+theIP = re.findall(r"d{1,3}.d{1,3}.d{1,3}.d{1,3}", request)
+print "your IP Address is: ",  theIP
+
 
 print "Enter User Name"
 Prompt = '>'
