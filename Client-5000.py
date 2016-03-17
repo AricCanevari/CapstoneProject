@@ -8,18 +8,24 @@ def get_local_ip():
 	Address = (s.getsockname()[0])
 	s.close()
 	return Address
+	
+def get_user_input():
+	Prompt = '>'
+	print "Enter User Name"
+	UserName = raw_input(Prompt)
+	print "Connect to?"
+	ConnectTo = raw_input(Prompt)
+	return(UserName, ConnectTo)
+
+
+#-------------------------------------------------------------------
+#        	Start Calling Functions for use!
+#-------------------------------------------------------------------
+
 
 Address = get_local_ip()
+UserName, ConnectTo = get_user_input
 
-#Gets client external address
-#Address = subprocess.check_output("wget http://people.sunyit.edu/~greenli/ip.php -qO -", shell=True)
-
-print "Enter User Name"
-Prompt = '>'
-UserName = raw_input(Prompt)
-
-print "Connect to?"
-ConnectTo = raw_input(Prompt)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ServerAddr = "67.241.38.178"
@@ -79,3 +85,7 @@ else:
   print Incomming
   cs.close()
 print "All sockets Closed"
+
+
+#Gets client external address
+#Address = subprocess.check_output("wget http://people.sunyit.edu/~greenli/ip.php -qO -", shell=True)
