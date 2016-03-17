@@ -59,10 +59,10 @@ if Incomming == check:
   print "Creating Socket"
   ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   ServerS.bind((Address, Port))
-  a = 0 
+ # a = 0 
   print "Socket created, waiting for connection:"
   ServerS.listen(5)
-  while (a < 1):
+ # while (a < 1):
   	Client, ClientAddr = ServerS.accept()
   	print "Got Connection from", ClientAddr
   	x = "Connected to: " + Address
