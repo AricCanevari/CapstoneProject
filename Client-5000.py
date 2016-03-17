@@ -69,8 +69,8 @@ def connect_to_other(ServerAddr, Port):
 	cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	cs.connect((ServerAddr, Port)) # Make sure to check Firewall
 	print "Socket Created"
-	Incomming = cs.recv(1024)
 	cs.listen(5)
+	Incomming = cs.recv(1024)
 	print Incomming
 	print "All sockets Closed"
 	cs.close()
