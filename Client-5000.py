@@ -2,13 +2,13 @@
 import socket
 import subprocess
 
-#s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-#s.connect(("gmail.com",80))
-#Address = (s.getsockname()[0])
-#s.close()
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("gmail.com",80))
+Address = (s.getsockname()[0])
+s.close()
 
 #Gets client external address
-Address = subprocess.check_output("wget http://people.sunyit.edu/~greenli/ip.php -qO -", shell=True)
+#Address = subprocess.check_output("wget http://people.sunyit.edu/~greenli/ip.php -qO -", shell=True)
 
 print "Enter User Name"
 Prompt = '>'
