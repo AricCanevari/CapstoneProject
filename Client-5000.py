@@ -52,6 +52,7 @@ def connect_to_server():
 		x = "Connected to: " + Address
 		Client.send(x)
 		ServerS.close()
+		return(Client, Port)
 	else:
 		outgoing = "Client Entered Client Portion of Code"
   		print outgoing
@@ -63,7 +64,7 @@ def connect_to_server():
 		Port = int(Port)
 		print Port
 		s.close()
-	return(ServerAddr, Port)
+		return(ServerAddr, Port)
 
 def connect_to_other(ServerAddr, Port):
 	cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
