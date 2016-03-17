@@ -18,6 +18,7 @@ def create_server_connection():
 	ServerS.listen(5)
 	return ServerS
 
+#Takes connections from the clients then connects them to each other
 def connect_with_clients():
 	clientport = "5005"
 	a = 0
