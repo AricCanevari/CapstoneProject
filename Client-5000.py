@@ -71,8 +71,8 @@ def connect_to_other(ServerAddr, Port):
 	print "Socket Created"
 	Incomming = cs.recv(1024)
 	print Incomming
-	cs.close()
 	print "All sockets Closed"
+	cs.close()
 
 #-------------------------------------------------------------------
 #        	Start Calling Functions for use!
@@ -82,7 +82,6 @@ def connect_to_other(ServerAddr, Port):
 Address = get_local_ip()
 UserName, ConnectTo = get_user_input()
 ServerAddr, Port = connect_to_server()
-print "Here"
 connect_to_other(ServerAddr, Port)
 
 
