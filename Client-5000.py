@@ -2,6 +2,17 @@
 import socket
 import subprocess
 
+
+#-------------------------------------------------------------------
+#        	Start Calling Functions for use!
+#-------------------------------------------------------------------
+
+def main():
+	Address = get_local_ip()
+	UserName, ConnectTo = get_user_input()
+	ServerAddr, Port = connect_to_server()
+	connect_to_other(ServerAddr, Port)
+
 #gets local IP address and returns it 
 def get_local_ip():
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -79,15 +90,6 @@ def connect_to_other(ServerAddr, Port):
 	print "All sockets Closed"
 	cs.close()
 
-#-------------------------------------------------------------------
-#        	Start Calling Functions for use!
-#-------------------------------------------------------------------
-
-
-Address = get_local_ip()
-UserName, ConnectTo = get_user_input()
-ServerAddr, Port = connect_to_server()
-connect_to_other(ServerAddr, Port)
 
 
 #Gets client external address
