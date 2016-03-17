@@ -52,7 +52,7 @@ def connect_to_server():
 		x = "Connected to: " + Address
 		Client.send(x)
 		ServerS.close()
-		return(Address, Port)
+		return(Client, Port)
 	else:
 		outgoing = "Client Entered Client Portion of Code"
   		print outgoing
