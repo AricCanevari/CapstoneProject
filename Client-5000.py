@@ -69,7 +69,6 @@ def connect_to_other(ServerAddr, Port):
 	cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	cs.connect((ServerAddr, Port)) # Make sure to check Firewall
 	print "Socket Created"
-	cs.listen(5)
 	Incomming = cs.recv(1024)
 	print Incomming
 	print "All sockets Closed"
@@ -83,8 +82,15 @@ def connect_to_other(ServerAddr, Port):
 Address = get_local_ip()
 UserName, ConnectTo = get_user_input()
 ServerAddr, Port = connect_to_server()
-connect_to_other(ServerAddr, Port)
+#connect_to_other(ServerAddr, Port)
 
+cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+cs.connect((ServerAddr, Port)) # Make sure to check Firewall
+print "Socket Created"
+Incomming = cs.recv(1024)
+print Incomming
+print "All sockets Closed"
+cs.close()
 
 #Gets client external address
 #Address = subprocess.check_output("wget http://people.sunyit.edu/~greenli/ip.php -qO -", shell=True)
