@@ -2,13 +2,15 @@
 import socket
 import subprocess
 
+#gets local IP address and returns it 
 def get_local_ip():
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	s.connect(("gmail.com",80))
 	Address = (s.getsockname()[0])
 	s.close()
 	return Address
-	
+
+#Gets user input for connections and returns it
 def get_user_input():
 	Prompt = '>'
 	print "Enter User Name"
@@ -16,7 +18,8 @@ def get_user_input():
 	print "Connect to?"
 	ConnectTo = raw_input(Prompt)
 	return(UserName, ConnectTo)
-	
+
+#sets up the connection with the server and returns client information
 def connect_to_server():
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	ServerAddr = "67.241.38.178"
@@ -66,6 +69,7 @@ def connect_to_server():
 		s.close()
 		return(ServerAddr, Port)
 
+#Sets up the connection between the two clients
 def connect_to_other(ServerAddr, Port):
 	cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	cs.connect((ServerAddr, Port)) # Make sure to check Firewall
