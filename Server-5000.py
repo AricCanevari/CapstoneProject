@@ -2,27 +2,32 @@
 import socket
 import subprocess
 
+#Gets the local IP address of server and returns it
 def get_local_ip():
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	s.connect(("gmail.com",80))
 	Address = (s.getsockname()[0])
 	s.close()
 	return Address
-
+	
+#Creates the Server Socket for messaging
+def create_connection():
+	ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	Port = 5000
+	ServerS.bind((Address, Port))
+	clientport = "5005"
+	ServerS.listen(5)
+	a = 0
+	
+	
 Address = get_local_ip()
 
-#Creates the Server Socket for messaging
-ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+create_connection()
 
 #Creates a connection to get public address of itself
 #Address = subprocess.check_output("wget http://people.sunyit.edu/~greenli/ip.php -qO -", shell=True)
 
-Port = 5000
-ServerS.bind((Address, Port))
-a = 0 
-clientport = "5005"
 
-ServerS.listen(5)
 while (a < 2):
 	Client, ClientAddr = ServerS.accept()
 	print "Got Connection from", ClientAddr
