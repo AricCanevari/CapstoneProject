@@ -24,6 +24,49 @@ def connect_to_server():
 	s.connect((ServerAddr, Port))
 	return(s)
 
+def connect_to_other():
+	check = "true"
+	Incomming = s.recv(1024)
+	print Incomming
+	s.send(Address)
+	print "Address sent"
+	s.send(UserName)
+	print "User Name Sent"
+	#s.send(ConnectTo)  #removing to test
+	#print "Other User sent"
+	Incomming = s.recv(1024)
+	#print Incomming 
+	#print check
+	if(Incomming == check):
+		outgoing = "Client Entered Server Portion of Code"
+		print outgoing
+		s.send(outgoing)
+		Port = s.recv(1024)
+		Port = int(Port)
+		print Port
+		s.close()
+		print "Creating Socket"
+		ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		ServerS.bind((Address, Port))
+		print "Socket created, waiting for connection:"
+		ServerS.listen(5)
+		Client, ClientAddr = ServerS.accept()
+		print "Got Connection from", ClientAddr
+		x = "Connected to: " + Address
+		Client.send(x)
+		ServerS.close()
+	else:
+		outgoing = "Client Entered Client Portion of Code"
+  		print outgoing
+		s.send(outgoing)
+		ServerAddr = s.recv(1024)
+		print ServerAddr
+		s.send(outgoing)
+		Port = s.recv(1024)
+		Port = int(Port)
+		print Port
+		s.close()
+
 #-------------------------------------------------------------------
 #        	Start Calling Functions for use!
 #-------------------------------------------------------------------
@@ -32,57 +75,16 @@ def connect_to_server():
 Address = get_local_ip()
 UserName, ConnectTo = get_user_input()
 s = connect_to_server()
+connect_to_other()
 
 
-
-Incomming = s.recv(1024)
-print Incomming
-s.send(Address)
-print "Address sent"
-s.send(UserName)
-print "User Name Sent"
-#s.send(ConnectTo)  #removing to test
-#print "Other User sent"
-check = "true"
-Incomming = s.recv(1024)
-print Incomming 
-print check
-if Incomming == check:
-	outgoing = "Client Entered Server Portion of Code"
-	print outgoing
-	s.send(outgoing)
-	Port = s.recv(1024)
-	Port = int(Port)
-	print Port
-	s.close()
-  	print "Creating Socket"
-  	ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  	ServerS.bind((Address, Port))
-  	print "Socket created, waiting for connection:"
-  	ServerS.listen(5)
-  	Client, ClientAddr = ServerS.accept()
-  	print "Got Connection from", ClientAddr
-  	x = "Connected to: " + Address
-  	Client.send(x)
-  	ServerS.close()
-else:
-  outgoing = "Client Entered Client Portion of Code"
-  print outgoing
-  s.send(outgoing)
-  ServerAddr = s.recv(1024)
-  print ServerAddr
-  s.send(outgoing)
-  Port = s.recv(1024)
-  Port = int(Port)
-  print Port
-  s.close()
   
-  cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  cs.connect((ServerAddr, Port)) # Make sure to check Firewall
-  print "Socket Created"
-  Incomming = cs.recv(1024)
-  print Incomming
-  cs.close()
+cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+cs.connect((ServerAddr, Port)) # Make sure to check Firewall
+print "Socket Created"
+Incomming = cs.recv(1024)
+print Incomming
+cs.close()
 print "All sockets Closed"
 
 
