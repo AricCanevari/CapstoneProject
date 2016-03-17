@@ -12,7 +12,7 @@ def get_local_ip():
 	
 #Creates the Server Socket for messaging
 def create_connection(ServerS, Port):
-	ServerS.bind((Address, Port))
+	ServerS.bind(Address, Port)
 	ServerS.listen(5)
 
 #------------------------------------------------------------
