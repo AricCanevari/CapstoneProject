@@ -85,7 +85,10 @@ UserName, ConnectTo = get_user_input()
 ServerAddr, Port = connect_to_server()
 #connect_to_other(ServerAddr, Port)
 
+print '############'
 print ServerAddr
+print Port
+print '############'
 
 cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 cs.connect((ServerAddr, Port)) # Make sure to check Firewall
