@@ -22,9 +22,6 @@ def connect_to_server():
 	ServerAddr = "67.241.38.178"
 	Port = 5000
 	s.connect((ServerAddr, Port))
-	return(s)
-
-def connect_to_other():
 	check = "true"
 	Incomming = s.recv(1024)
 	print Incomming
@@ -66,6 +63,16 @@ def connect_to_other():
 		Port = int(Port)
 		print Port
 		s.close()
+	return(ServerAddr, Port)
+
+def connect_to_other(ServerAddr, Port):
+	cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	cs.connect((ServerAddr, Port)) # Make sure to check Firewall
+	print "Socket Created"
+	Incomming = cs.recv(1024)
+	print Incomming
+	cs.close()
+	print "All sockets Closed"
 
 #-------------------------------------------------------------------
 #        	Start Calling Functions for use!
@@ -74,18 +81,8 @@ def connect_to_other():
 
 Address = get_local_ip()
 UserName, ConnectTo = get_user_input()
-s = connect_to_server()
-connect_to_other()
-
-
-  
-cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-cs.connect((ServerAddr, Port)) # Make sure to check Firewall
-print "Socket Created"
-Incomming = cs.recv(1024)
-print Incomming
-cs.close()
-print "All sockets Closed"
+ServerAddr, Port = connect_to_server()
+connect_to_other(ServerAddr, Port)
 
 
 #Gets client external address
