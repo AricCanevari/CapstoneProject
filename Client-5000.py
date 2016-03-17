@@ -68,7 +68,7 @@ if Incomming == check:
   	x = "Connected to: " + Address
   	Client.send(x)
   	ServerS.close()
-  	a = a + 1
+  #	a = a + 1
 else:
   outgoing = "Client Entered Client Portion of Code"
   print outgoing
