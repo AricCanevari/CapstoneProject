@@ -46,7 +46,7 @@ def connect_to_server():
 		Port = int(Port)
 		print Port
 		s.close()
-		Server_Code()
+		Server_Code(Port)
 		#return(Address, Port)
 	else:
 		outgoing = "Client Entered Client Portion of Code"
@@ -60,10 +60,10 @@ def connect_to_server():
 		s.close()
 		print "Closed connection to Server"
 		#return(ServerAddr, Port)
-		Client_Code()
+		Client_Code(ServerAddr, Port)
 		
 
-def Server_Code():
+def Server_Code(Port):
 	print "Creating Server Socket"
 	ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	ServerS.bind((Address, Port))
@@ -77,7 +77,7 @@ def Server_Code():
 	print "end of server portion"
 	
 	
-def Client_Code():
+def Client_Code(ServerAddr, Port):
 	print "Connecting to Other Client"
 	cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	cs.connect((ServerAddr, Port)) # Make sure to check Firewall
@@ -91,12 +91,9 @@ def Client_Code():
 #        	Start Calling Functions for use!
 #-------------------------------------------------------------------
 
-
 Address = get_local_ip()
 UserName, ConnectTo = get_user_input()
-#ServerAddr, Port = 
 connect_to_server()
-#connect_to_other(ServerAddr, Port)
 
 #Gets client external address
 #Address = subprocess.check_output("wget http://people.sunyit.edu/~greenli/ip.php -qO -", shell=True)
