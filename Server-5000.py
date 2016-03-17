@@ -11,22 +11,25 @@ def get_local_ip():
 	return Address
 	
 #Creates the Server Socket for messaging
-def create_connection():
-	ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	Port = 5000
+def create_connection(ServerS, Port):
 	ServerS.bind((Address, Port))
-	clientport = "5005"
 	ServerS.listen(5)
 
-
+#------------------------------------------------------------
 	
 Address = get_local_ip()
-create_connection()
+
+ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+clientport = "5005"
+Port = 5000
+a = 0
+
+create_connection(ServerS, Port)
 
 #Creates a connection to get public address of itself
 #Address = subprocess.check_output("wget http://people.sunyit.edu/~greenli/ip.php -qO -", shell=True)
 
-a = 0
+
 while (a < 2):
 	Client, ClientAddr = ServerS.accept()
 	print "Got Connection from", ClientAddr
