@@ -46,16 +46,18 @@ def connect_to_server():
 		Port = int(Port)
 		print Port
 		s.close()
-		print "Creating Socket"
+		
+		print "Creating Server Socket"
 		ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		ServerS.bind((Address, Port))
-		print "Socket created, waiting for connection:"
+		print "Server Socket created, waiting for connection:"
 		ServerS.listen(5)
 		Client, ClientAddr = ServerS.accept()
 		print "Got Connection from", ClientAddr
 		x = "Connected to: " + Address
 		Client.send(x)
 		ServerS.close()
+		print "end of server portion"
 		return(Address, Port)
 	else:
 		outgoing = "Client Entered Client Portion of Code"
@@ -66,19 +68,28 @@ def connect_to_server():
 		s.send(outgoing)
 		Port = s.recv(1024)
 		Port = int(Port)
-		print Port
 		s.close()
-		return(ServerAddr, Port)
+		print "Closed connection to Server"
+		#return(ServerAddr, Port)
+		print "Connecting to Other Client"
+		cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		cs.connect((ServerAddr, Port)) # Make sure to check Firewall
+		print "Socket Created"
+		Incomming = cs.recv(1024)
+		print Incomming
+		print "All sockets Closed"
+		cs.close()
+
+
 
 #Sets up the connection between the two clients
-def connect_to_other(ServerAddr, Port):
-	cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	cs.connect((ServerAddr, Port)) # Make sure to check Firewall
-	print "Socket Created"
-	Incomming = cs.recv(1024)
-	print Incomming
-	print "All sockets Closed"
-	cs.close()
+#def connect_to_other(ServerAddr, Port):
+#	cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#	cs.connect((ServerAddr, Port)) # Make sure to check Firewall
+#	print "Socket Created"
+#	Incomming = cs.recv(1024)
+#	print Incomming
+##	cs.close()
 
 #-------------------------------------------------------------------
 #        	Start Calling Functions for use!
@@ -88,7 +99,7 @@ def connect_to_other(ServerAddr, Port):
 Address = get_local_ip()
 UserName, ConnectTo = get_user_input()
 ServerAddr, Port = connect_to_server()
-connect_to_other(ServerAddr, Port)
+#connect_to_other(ServerAddr, Port)
 
 #Gets client external address
 #Address = subprocess.check_output("wget http://people.sunyit.edu/~greenli/ip.php -qO -", shell=True)
