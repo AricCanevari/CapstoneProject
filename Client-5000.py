@@ -48,27 +48,23 @@ Incomming = s.recv(1024)
 print Incomming 
 print check
 if Incomming == check:
-  outgoing = "Client Entered Server Portion of Code"
-  print outgoing
-  s.send(outgoing)
-  Port = s.recv(1024)
-  Port = int(Port)
-  print Port
-  s.close()
-  
-  print "Creating Socket"
-  ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  ServerS.bind((Address, Port))
- # a = 0 
-  print "Socket created, waiting for connection:"
-  ServerS.listen(5)
- # while (a < 1):
+	outgoing = "Client Entered Server Portion of Code"
+	print outgoing
+	s.send(outgoing)
+	Port = s.recv(1024)
+	Port = int(Port)
+	print Port
+	s.close()
+  	print "Creating Socket"
+  	ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  	ServerS.bind((Address, Port))
+  	print "Socket created, waiting for connection:"
+  	ServerS.listen(5)
   	Client, ClientAddr = ServerS.accept()
   	print "Got Connection from", ClientAddr
   	x = "Connected to: " + Address
   	Client.send(x)
   	ServerS.close()
-  #	a = a + 1
 else:
   outgoing = "Client Entered Client Portion of Code"
   print outgoing
