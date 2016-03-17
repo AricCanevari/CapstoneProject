@@ -11,7 +11,7 @@ def get_local_ip():
 	return Address
 	
 #Creates the Server Socket for messaging
-def create_connection(ServerS, Port):
+def create_connection():
 	ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	Port = 5000
 	ServerS.bind((Address, Port))
