@@ -17,17 +17,16 @@ def create_connection():
 	ServerS.bind((Address, Port))
 	clientport = "5005"
 	ServerS.listen(5)
-	a = 0
-	
+
+
 	
 Address = get_local_ip()
-
 create_connection()
 
 #Creates a connection to get public address of itself
 #Address = subprocess.check_output("wget http://people.sunyit.edu/~greenli/ip.php -qO -", shell=True)
 
-
+a = 0
 while (a < 2):
 	Client, ClientAddr = ServerS.accept()
 	print "Got Connection from", ClientAddr
