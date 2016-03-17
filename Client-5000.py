@@ -16,7 +16,13 @@ def get_user_input():
 	print "Connect to?"
 	ConnectTo = raw_input(Prompt)
 	return(UserName, ConnectTo)
-
+	
+def connect_to_server():
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	ServerAddr = "67.241.38.178"
+	Port = 5000
+	s.connect((ServerAddr, Port))
+	return(s)
 
 #-------------------------------------------------------------------
 #        	Start Calling Functions for use!
@@ -24,14 +30,11 @@ def get_user_input():
 
 
 Address = get_local_ip()
-UserName, ConnectTo = get_user_input
+UserName, ConnectTo = get_user_input()
+s = connect_to_server()
 
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-ServerAddr = "67.241.38.178"
-Port = 5000
 
-s.connect((ServerAddr, Port))
 Incomming = s.recv(1024)
 print Incomming
 s.send(Address)
