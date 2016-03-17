@@ -82,6 +82,7 @@ def connect_to_other(ServerAddr, Port):
 Address = get_local_ip()
 UserName, ConnectTo = get_user_input()
 ServerAddr, Port = connect_to_server()
+print "Here"
 connect_to_other(ServerAddr, Port)
 
 
