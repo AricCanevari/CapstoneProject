@@ -51,9 +51,13 @@ def connect_with_clients():
 		Client.close()
 		a=a+1
 	ServerS.close()
+
 	
-#------------------------------------------------------------
-	
+#-------------------------------------------------------------------
+#        	Start Calling Functions for use!
+#-------------------------------------------------------------------
+
+
 Address = get_local_ip()
 ServerS = create_server_connection()
 connect_with_clients()
