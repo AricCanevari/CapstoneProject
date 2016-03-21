@@ -51,6 +51,7 @@ def connect_with_clients():
 		Client.close()
 		a=a+1
 	ServerS.close()
+	return
 
 	
 #-------------------------------------------------------------------
