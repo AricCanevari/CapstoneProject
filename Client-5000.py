@@ -9,7 +9,7 @@ def get_local_ip():
 	s.connect(("gmail.com",80))
 	Address = (s.getsockname()[0])
 	s.close()
-	return Address
+	D615 Address
 
 #Gets user input for connections and returns it
 def get_user_input():
@@ -47,7 +47,6 @@ def connect_to_server():
 		print Port
 		s.close()
 		Server_Code(Port)
-		#return(Address, Port)
 	else:
 		outgoing = "Client Entered Client Portion of Code"
   		print outgoing
@@ -59,8 +58,8 @@ def connect_to_server():
 		Port = int(Port)
 		s.close()
 		print "Closed connection to Server"
-		#return(ServerAddr, Port)
 		Client_Code(ServerAddr, Port)
+	return
 		
 
 def Server_Code(Port):
@@ -75,6 +74,7 @@ def Server_Code(Port):
 	Client.send(x)
 	ServerS.close()
 	print "end of server portion"
+	return
 	
 	
 def Client_Code(ServerAddr, Port):
@@ -86,6 +86,7 @@ def Client_Code(ServerAddr, Port):
 	print Incomming
 	print "All sockets Closed"
 	cs.close()
+	return
 
 #-------------------------------------------------------------------
 #        	Start Calling Functions for use!
