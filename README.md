@@ -12,8 +12,11 @@ Server used to:
 
 Parts done:
 
+Client Server exchange
+
 Parts to work on:
 
+Messaging part of code,  database, allowing other users to chat, usercreation, encryption
 
 
 
