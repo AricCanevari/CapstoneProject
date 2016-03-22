@@ -16,7 +16,7 @@ Client Server exchange
 
 Parts to work on:
 
-Messaging part of code,  database, allowing other users to chat, usercreation, encryption
+Messaging part of code,change the ip to dynamic dns,  database, allowing other users to chat, usercreation, encryption
 
 
 
