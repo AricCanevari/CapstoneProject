@@ -9,7 +9,7 @@ def get_local_ip():
  	s.connect(("gmail.com",80))
  	Address = (s.getsockname()[0])
  	Address = str(Address)
- 	print Address
+ 	#print Address
  	s.close()
 #Gets user input for connections and returns it
 def get_user_input():
@@ -61,15 +61,13 @@ def connect_to_server():
 	check = "true"
 	Incomming = s.recv(1024)
 	print Incomming
-	s.send(Address)
-	print "Address sent"
+	#s.send(Address)
+	#print "Address sent: " + Address
 	s.send(UserName)
-	print "User Name Sent"
+	print "User Name Sent: " + UserName
 	#s.send(ConnectTo)  #removing to test
 	#print "Other User sent"
 	Incomming = s.recv(1024)
-	#print Incomming 
-	#print check
 	if(Incomming == check):
 		outgoing = "Client Entered Server Portion of Code"
 		print outgoing
