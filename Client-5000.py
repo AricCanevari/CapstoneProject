@@ -114,7 +114,7 @@ def Server_Code(Port):
 	
 def Client_Code(ServerAddr, Port):
 	print "Connecting to Other Client"
-	global cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	cs.connect((ServerAddr, Port)) # Make sure to check Firewall
 	print "Socket Created"
 	Incomming = cs.recv(1024)
