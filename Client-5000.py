@@ -93,7 +93,6 @@ def Server_Code(Port):
 	print "Server Socket created, waiting for connection:"
 	ServerS.listen(5)
 	Client, ClientAddr = ServerS.accept()
-	global Client = Client
 	print "Got Connection from", ClientAddr
 	x = "Connected to: " + Address
 	Client.send(x)
