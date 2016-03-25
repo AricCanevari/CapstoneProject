@@ -1,23 +1,23 @@
 #!/usr/bin/python
 import socket
 import subprocess
-
+import threading
+from os.path import expanduser
+home = expanduser("~")
 
 #gets local IP address and returns it
 # 
 ## May be able to remove!!
 #
-def get_local_ip():
-	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-	s.connect(("gmail.com",80))
-	Address = (s.getsockname()[0])
-	s.close()
+def get_address():
+	
+	Address = 
 	return Address
 
 #Gets user input for connections and returns it
 def get_user_input():
 	Prompt = '>'
-	print "Enter User Name"
+	print "DDNS Host Name"
 	UserName = raw_input(Prompt)
 	print "Connect to?"
 	ConnectTo = raw_input(Prompt)
@@ -148,8 +148,9 @@ def Client_Code(ServerAddr, Port):
 #        	Start Calling Functions for use!
 #-------------------------------------------------------------------
 
-Address = get_local_ip()
 UserName, ConnectTo = get_user_input()
+Address = UserName
+print Address
 connect_to_server()
 
 #Gets client external address
