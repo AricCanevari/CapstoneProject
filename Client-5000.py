@@ -9,7 +9,7 @@ def get_local_ip():
  	s.connect(("gmail.com",80))
  	Address = (s.getsockname()[0])
  	Address = str(Address)
- 	#print Address
+ 	print Address
  	s.close()
 #Gets user input for connections and returns it
 def get_user_input():
