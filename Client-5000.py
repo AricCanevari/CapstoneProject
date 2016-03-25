@@ -59,7 +59,7 @@ def connect_to_server():
 	check = "true"
 	Incomming = s.recv(1024)
 	print Incomming
-	s.send(SendAddress)
+	s.send(Address)
 	print "Address sent"
 	s.send(UserName)
 	print "User Name Sent"
