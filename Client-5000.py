@@ -53,7 +53,7 @@ def sendthread(mssg):
 			cs.send(data)
 
 #sets up the connection with the server and returns client information
-def connect_to_server():
+def connect_to_server(Address):
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	ServerAddr = "67.241.38.178"
 	Port = 5000
@@ -76,7 +76,7 @@ def connect_to_server():
 		Port = int(Port)
 		print Port
 		s.close()
-		Server_Code(Port)
+		Server_Code(Address, Port)
 	else:
 		outgoing = "Client Entered Client Portion of Code"
   		print outgoing
@@ -92,7 +92,7 @@ def connect_to_server():
 	return
 		
 
-def Server_Code(Port):
+def Server_Code(Address, Port):
 	print "Creating Server Socket"
 	ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	Port = int(Port)
@@ -152,7 +152,7 @@ def Client_Code(ServerAddr, Port):
 Address = get_local_ip()
 UserName, ConnectTo = get_user_input()
 SendAddress = UserName
-connect_to_server()
+connect_to_server(Address)
 
 #Gets client external address
 #Address = subprocess.check_output("wget http://people.sunyit.edu/~greenli/ip.php -qO -", shell=True)
