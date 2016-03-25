@@ -95,6 +95,8 @@ def connect_to_server():
 def Server_Code(Port):
 	print "Creating Server Socket"
 	ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	Port = int(Port)
+	Address = str(Address)
 	ServerS.bind((Address, Port))
 	print "Server Socket created, waiting for connection:"
 	ServerS.listen(5)
