@@ -2,17 +2,8 @@
 import socket
 import subprocess
 import threading
-from os.path import expanduser
-home = expanduser("~")
 
-#gets local IP address and returns it
-# 
-## May be able to remove!!
-#
-def get_address():
-	
-	Address = 
-	return Address
+
 
 #Gets user input for connections and returns it
 def get_user_input():
