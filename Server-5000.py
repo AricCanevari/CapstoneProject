@@ -27,8 +27,8 @@ def connect_with_clients():
 		print "Got Connection from", ClientAddr
 		x = "Connected to Server"
 		Client.send(x)
-		ClientIP = Client.recv(1024)
-		print "ClientIP recv"
+		#ClientIP = Client.recv(1024)
+		#print "ClientIP recv"
 		ClientUN = Client.recv(1024)
 		print "ClientUN recv"
 #		ClientCT = Client.recv(1024) #Code is freezing here? why?? removing to test
