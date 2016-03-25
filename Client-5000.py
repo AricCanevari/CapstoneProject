@@ -4,7 +4,11 @@ import subprocess
 import threading
 
 
-
+def get_local_ip():
+ 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+ 	s.connect(("gmail.com",80))
+ 	Address = (s.getsockname()[0])
+ 	s.close()
 #Gets user input for connections and returns it
 def get_user_input():
 	Prompt = '>'
@@ -53,7 +57,7 @@ def connect_to_server():
 	check = "true"
 	Incomming = s.recv(1024)
 	print Incomming
-	s.send(Address)
+	s.send(SendAddress)
 	print "Address sent"
 	s.send(UserName)
 	print "User Name Sent"
@@ -139,9 +143,9 @@ def Client_Code(ServerAddr, Port):
 #        	Start Calling Functions for use!
 #-------------------------------------------------------------------
 
+Address = get_local_ip()
 UserName, ConnectTo = get_user_input()
-Address = UserName
-print Address
+SendAddress = UserName
 connect_to_server()
 
 #Gets client external address
