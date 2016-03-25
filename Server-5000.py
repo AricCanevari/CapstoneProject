@@ -39,7 +39,7 @@ def connect_with_clients():
 			Client.send(outgoing)
 			print Client.recv(1024)
 			Client.send(clientport)
-			ClientAIP = ClientIP
+			ClientAIP = ClientUN
 		if (a == 1):
 			print "Entered if a = 1"
 			outgoing = "false"
