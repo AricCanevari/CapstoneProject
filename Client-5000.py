@@ -3,7 +3,10 @@ import socket
 import subprocess
 
 
-#gets local IP address and returns it 
+#gets local IP address and returns it
+# 
+## May be able to remove!!
+#
 def get_local_ip():
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	s.connect(("gmail.com",80))
@@ -19,6 +22,36 @@ def get_user_input():
 	print "Connect to?"
 	ConnectTo = raw_input(Prompt)
 	return(UserName, ConnectTo)
+
+def recvthread(mssg):
+	print mssg
+	if (mssg == 1):
+		quit = False
+		while quit == False:
+			data = Client.recv(size)
+			print "\r[Other]:" + data
+			if (data == "quit\n"):
+				quit = True
+	if (mssg == 2):
+		quit = False
+		while True:
+			data = cs.recv(size)
+			print "\r[Other]:" + data
+			if (data == "quit\n"):
+				quit = True
+
+def sendthread(mssg):
+	print mssg
+	if (mssg == 1):
+		while True:
+			data = raw_input()
+			print "[Me]>" + data
+			Client.send(data)
+	if (mssg == 2):
+		while True:
+			data = raw_input()
+			print "[Me]>" + data
+			cs.send(data)
 
 #sets up the connection with the server and returns client information
 def connect_to_server():
@@ -68,10 +101,21 @@ def Server_Code(Port):
 	ServerS.bind((Address, Port))
 	print "Server Socket created, waiting for connection:"
 	ServerS.listen(5)
-	Client, ClientAddr = ServerS.accept()
+	global Client, ClientAddr = ServerS.accept()
 	print "Got Connection from", ClientAddr
 	x = "Connected to: " + Address
 	Client.send(x)
+	
+	################################
+	#####Server Messaging Part:#####
+	################################
+	t1 = Thread(target=recvthread, args=(1,))
+	t2 = Thread(target=sendthread, args=(1,))
+	t1.start()
+	t2.start()
+	t1.join()
+	t2.join()
+	
 	ServerS.close()
 	print "end of server portion"
 	return
@@ -79,11 +123,23 @@ def Server_Code(Port):
 	
 def Client_Code(ServerAddr, Port):
 	print "Connecting to Other Client"
-	cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	global cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	cs.connect((ServerAddr, Port)) # Make sure to check Firewall
 	print "Socket Created"
 	Incomming = cs.recv(1024)
 	print Incomming
+	
+	################################
+	#####Client Messaging Part:#####
+	################################
+	t1 = Thread(target=recvthread, args=(2,))
+	t2 = Thread(target=sendthread, args=(2,))
+	t1.start()
+	t2.start()
+	t1.join()
+	t2.join()
+	
+	
 	print "All sockets Closed"
 	cs.close()
 	return
