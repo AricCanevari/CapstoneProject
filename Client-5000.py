@@ -14,7 +14,8 @@ def get_user_input():
 	Prompt = '>'
 	print "DDNS Host Name"
 	UserName = raw_input(Prompt)
-	UserName = str(UserName)
+	UserName = (str(UserName), 25)
+	print UserName
 	print "Connect to?"
 	ConnectTo = raw_input(Prompt)
 	return(UserName, ConnectTo)
