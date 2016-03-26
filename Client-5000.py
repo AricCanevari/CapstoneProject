@@ -87,7 +87,7 @@ def connect_to_server(Address):
 		s.send(outgoing) #
 		Port = s.recv(1024)
 		Port = int(Port)
-		print "Client Version of Port: " + Port
+		print "Client Version of Port: ", Port
 		s.close()
 		print "Closed connection to Server"
 		Client_Code(ServerAddr, Port)
