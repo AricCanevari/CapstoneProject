@@ -68,7 +68,7 @@ def connect_to_server(Address):
 	print "User Name Sent: " + UserName
 	#s.send(ConnectTo)  #removing to test
 	#print "Other User sent"
-	Incomming = s.recv(1024)
+	Incomming = s.recv(1024) # recv true/false
 	if(Incomming == check):
 		outgoing = "Client Entered Server Portion of Code"
 		print outgoing
@@ -80,13 +80,14 @@ def connect_to_server(Address):
 		Server_Code(Address, Port)
 	else:
 		outgoing = "Client Entered Client Portion of Code"
-  		print outgoing
-		s.send(outgoing)
-		ServerAddr = s.recv(1024)
-		print ServerAddr
-		s.send(outgoing)
+  		print outgoing 
+		s.send(outgoing) #
+		ServerAddr = s.recv(1024) #
+		print "Client Version of Client-Server address: " + ServerAddr
+		s.send(outgoing) #
 		Port = s.recv(1024)
 		Port = int(Port)
+		print "Client Version of Port: " + Port
 		s.close()
 		print "Closed connection to Server"
 		Client_Code(ServerAddr, Port)
