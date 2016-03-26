@@ -44,10 +44,12 @@ def connect_with_clients():
 			print "Entered if a = 1"
 			outgoing = "false"
 			Client.send(outgoing)
-			print Client.recv(1024)
-			Client.send(ClientAIP)
-			print Client.recv(1024)
-			Client.send(clientport)
+			print Client.recv(1024)#
+			print "Server Version of Client-Server Address" + ClientAIP
+			Client.send(ClientAIP) #
+			print Client.recv(1024) #
+			Client.send(clientport) #
+			print "Server Version of Port: " + clientport
 		Client.close()
 		a=a+1
 	ServerS.close()
