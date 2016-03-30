@@ -50,14 +50,14 @@ def sendthread(mssg):
 	print mssg
 	if (mssg == 1):
 		global Client
-		while True:
+		while quit == False:
 			data = raw_input()
 			print "[Me]>" + data
 			Client.send(data)
 			if (data == "quit"):
 				quit = True
 	if (mssg == 2):
-		while True:
+		while quit == False:
 			global cs
 			data = raw_input()
 			print "[Me]>" + data
