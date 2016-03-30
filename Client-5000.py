@@ -62,8 +62,8 @@ def connect_to_server(Address):
 	check = "true"
 	Incomming = s.recv(1024)
 	print Incomming
-	#s.send(Address)
-	#print "Address sent: " + Address
+	s.send(Address)
+	print "Address sent: " + Address
 	s.send(UserName)
 	print "User Name Sent: " + UserName
 	#s.send(ConnectTo)  #removing to test
