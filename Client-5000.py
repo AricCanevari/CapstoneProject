@@ -24,8 +24,10 @@ def get_user_input():
 	return(UserName, ConnectTo)
 
 def recvthread(mssg):
+
 	print mssg
 	if (mssg == 1):
+		global Client
 		quit = False
 		while quit == False:
 			data = Client.recv(size)
@@ -33,6 +35,7 @@ def recvthread(mssg):
 			if (data == "quit\n"):
 				quit = True
 	if (mssg == 2):
+		global cs
 		quit = False
 		while True:
 			data = cs.recv(size)
@@ -43,12 +46,14 @@ def recvthread(mssg):
 def sendthread(mssg):
 	print mssg
 	if (mssg == 1):
+		global Client
 		while True:
 			data = raw_input()
 			print "[Me]>" + data
 			Client.send(data)
 	if (mssg == 2):
 		while True:
+			global cs
 			data = raw_input()
 			print "[Me]>" + data
 			cs.send(data)
@@ -95,6 +100,7 @@ def connect_to_server(Address):
 		
 
 def Server_Code(Address, Port):
+	global Client
 	print "Creating Server Socket"
 	ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	Port = int(Port)
@@ -125,6 +131,7 @@ def Server_Code(Address, Port):
 	
 	
 def Client_Code(ServerAddr, Port):
+	global cs
 	print "Connecting to Other Client"
 	cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	cs.connect((ServerAddr, Port)) # Make sure to check Firewall
@@ -150,9 +157,8 @@ def Client_Code(ServerAddr, Port):
 #-------------------------------------------------------------------
 #        	Start Calling Functions for use!
 #-------------------------------------------------------------------
-global Client = ""
-global cs = ""
-global ServerS = ""
+Client = ""
+cs = ""
 
 Address = get_local_ip()
 UserName, ConnectTo = get_user_input()
