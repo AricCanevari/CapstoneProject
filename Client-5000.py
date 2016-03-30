@@ -150,9 +150,9 @@ def Client_Code(ServerAddr, Port):
 #-------------------------------------------------------------------
 #        	Start Calling Functions for use!
 #-------------------------------------------------------------------
-global Client
-global cs
-global ServerS
+global Client = ""
+global cs = ""
+global ServerS = ""
 
 Address = get_local_ip()
 UserName, ConnectTo = get_user_input()
