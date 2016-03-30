@@ -24,11 +24,10 @@ def get_user_input():
 	return(UserName, ConnectTo)
 
 def recvthread(mssg):
-
+	quit = False
 	print mssg
 	if (mssg == 1):
 		global Client
-		quit = False
 		while quit == False:
 			if (data == "quit"):
 				quit = True
@@ -37,7 +36,6 @@ def recvthread(mssg):
 			
 	if (mssg == 2):
 		global cs
-		quit = False
 		while True:
 			if (data == "quit"):
 				quit = True
@@ -46,6 +44,7 @@ def recvthread(mssg):
 			
 
 def sendthread(mssg):
+	quit = False
 	print mssg
 	if (mssg == 1):
 		global Client
