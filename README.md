@@ -13,10 +13,12 @@ Server used to:
 Parts done:
 
 Client Server exchange
+Client to Client Messaging
+
 
 Parts to work on:
 
-Messaging part of code,change the ip to dynamic dns,  database, allowing other users to chat, usercreation, encryption
+database/list allowing other users to chat, usercreation/ServerKey database, encryption, connection reversal(allowing connections through nat)
 
 
 
