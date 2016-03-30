@@ -30,18 +30,20 @@ def recvthread(mssg):
 		global Client
 		quit = False
 		while quit == False:
+			if (data == "quit"):
+				quit = True
 			data = Client.recv(1024)
 			print "\r[Other]:" + data
-			if (data == "quit\n"):
-				quit = True
+			
 	if (mssg == 2):
 		global cs
 		quit = False
 		while True:
+			if (data == "quit"):
+				quit = True
 			data = cs.recv(1024)
 			print "\r[Other]:" + data
-			if (data == "quit\n"):
-				quit = True
+			
 
 def sendthread(mssg):
 	print mssg
@@ -51,12 +53,16 @@ def sendthread(mssg):
 			data = raw_input()
 			print "[Me]>" + data
 			Client.send(data)
+			if (data == "quit"):
+				quit = True
 	if (mssg == 2):
 		while True:
 			global cs
 			data = raw_input()
 			print "[Me]>" + data
 			cs.send(data)
+			if (data == "quit"):
+				quit = True
 
 #sets up the connection with the server and returns client information
 def connect_to_server(Address):
