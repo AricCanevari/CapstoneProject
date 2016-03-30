@@ -30,7 +30,7 @@ def recvthread(mssg):
 		global Client
 		quit = False
 		while quit == False:
-			data = Client.recv(size)
+			data = Client.recv(1024)
 			print "\r[Other]:" + data
 			if (data == "quit\n"):
 				quit = True
@@ -38,7 +38,7 @@ def recvthread(mssg):
 		global cs
 		quit = False
 		while True:
-			data = cs.recv(size)
+			data = cs.recv(1024)
 			print "\r[Other]:" + data
 			if (data == "quit\n"):
 				quit = True
