@@ -25,6 +25,7 @@ def get_user_input():
 
 def recvthread(mssg):
 	quit = False
+	data = ""
 	print mssg
 	if (mssg == 1):
 		global Client
@@ -45,6 +46,7 @@ def recvthread(mssg):
 
 def sendthread(mssg):
 	quit = False
+	data = ""
 	print mssg
 	if (mssg == 1):
 		global Client
