@@ -3,7 +3,7 @@ import socket
 import subprocess
 from threading import Thread
 
-
+#Gets the local IP Address of the computer
 def get_local_ip():
  	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
  	s.connect(("gmail.com",80))
@@ -12,6 +12,8 @@ def get_local_ip():
  	print "Address in function get_local_ip()" + Address
  	s.close()
  	return Address
+ 	
+ 	
 #Gets user input for connections and returns it
 def get_user_input():
 	Prompt = '>'
@@ -23,6 +25,7 @@ def get_user_input():
 	ConnectTo = raw_input(Prompt)
 	return(UserName, ConnectTo)
 
+#Used from the threading statment. It will continuously wait for a message
 def recvthread(mssg):
 	quit = False
 	data = ""
@@ -31,7 +34,7 @@ def recvthread(mssg):
 		global Client
 		while quit == False:
 			if (data == "quit"):
-				quit = True
+				quit = True #not working, Why??
 			data = Client.recv(1024)
 			print "\r[Other]:" + data
 			
@@ -75,9 +78,9 @@ def connect_to_server(Address):
 	Incomming = s.recv(1024)
 	print Incomming
 	s.send(Address)
-	print "Address sent: " + Address
+	#print "Address sent: " + Address
 	s.send(UserName)
-	print "User Name Sent: " + UserName
+	#print "User Name Sent: " + UserName
 	#s.send(ConnectTo)  #removing to test
 	#print "Other User sent"
 	Incomming = s.recv(1024) # recv true/false
@@ -95,11 +98,11 @@ def connect_to_server(Address):
   		print outgoing 
 		s.send(outgoing) #
 		ServerAddr = s.recv(1024) #
-		print "Client Version of Client-Server address: " + ServerAddr
+		#print "Client Version of Client-Server address: " + ServerAddr
 		s.send(outgoing) #
 		Port = s.recv(1024)
 		Port = int(Port)
-		print "Client Version of Port: ", Port
+		#print "Client Version of Port: ", Port
 		s.close()
 		print "Closed connection to Server"
 		Client_Code(ServerAddr, Port)
@@ -161,9 +164,9 @@ def Client_Code(ServerAddr, Port):
 	cs.close()
 	return
 
-#-------------------------------------------------------------------
-#        	Start Calling Functions for use!
-#-------------------------------------------------------------------
+#-----------------------------------------------------------#
+##############Start Calling Functions for use!###############
+#-----------------------------------------------------------#
 Client = ""
 cs = ""
 
