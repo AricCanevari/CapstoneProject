@@ -63,7 +63,7 @@ def connect_with_clients():
 				a = 0	
 			if b == "q":
 				a = 2
-			else 
+			else:
 				a = 2
 		Client.close()
 		
