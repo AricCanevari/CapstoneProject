@@ -5,9 +5,9 @@ from Crypto import Random
 from Crypto.PublicKey import RSA
 
 #Gets the local IP address of server and returns it
-def encrypt_data(data, user):
+#def encrypt_data(data, user):
 	
-def decrypt_data(data):
+#def decrypt_data(data):
 	
 def get_local_ip():
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
