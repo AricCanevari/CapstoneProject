@@ -66,16 +66,18 @@ def recv_thread(mssg):
 	print mssg
 	if (mssg == 1):
 		while quit == False:
-			if (data == "quit"):
+			if (cipher2.decrypt(data) == "quit"):
 				quit = True #not working, Why??
+				CS.close()
 			data = Client.recv(1024)
 			print "Encrypted: " + data
 			print "\r[" + ClientB + "]: " + cipher2.decrypt(data)
 			
 	if (mssg == 2):
 		while True:
-			if (data == "quit"):
+			if (cipher2.decrypt(data) == "quit"):
 				quit = True
+				CS.close()
 			data = CS.recv(1024)
 			print "Encrypted: " + data
 			print "\r[" + ClientB + "]: " + cipher2.decrypt(data)
@@ -94,6 +96,7 @@ def send_thread(mssg):
 			Client.send(cipher1.encrypt(data))
 			if (data == "quit"):
 				quit = True
+				CS.close()
 	if (mssg == 2):
 		while quit == False:
 			data = raw_input()
@@ -101,6 +104,7 @@ def send_thread(mssg):
 			CS.send(cipher1.encrypt(data))
 			if (data == "quit"):
 				quit = True
+				CS.close()
 	#end send_thread()
 
 #Handles the Server Portion of the messanger 
