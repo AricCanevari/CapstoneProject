@@ -13,6 +13,8 @@ from Crypto.PublicKey import RSA
 logfile = ""
 ClientA = ""
 ClientB = ""
+Client = ""
+CS = ""
 
 #Gets the local IP Address of the computer
 def get_local_ip():
@@ -55,8 +57,8 @@ def server_socket(Port):
 	return ServerS
 	
 #Used from the threading statment. It will continuously wait for a message
-def recv_thread(mssg, s):
-	global ClientB
+def recv_thread(mssg):
+	global ClientB, CS, Client
 	quit = False
 	data = ""
 	print mssg
@@ -64,20 +66,20 @@ def recv_thread(mssg, s):
 		while quit == False:
 			if (data == "quit"):
 				quit = True #not working, Why??
-			data = s.recv(1024)
+			data = Client.recv(1024)
 			print "\r[" + ClientB + "]: " + data
 			
 	if (mssg == 2):
 		while True:
 			if (data == "quit"):
 				quit = True
-			data = s.recv(1024)
+			data = CS.recv(1024)
 			print "\r[" + ClientB + "]: " + data
 	#end recv_thread()
 
 #Used from the threading statment. It will send whenever it gets a message
-def send_thread(mssg, s):
-	global ClientA
+def send_thread(mssg):
+	global ClientA, CS, ServerS
 	quit = False
 	data = ""
 	print mssg
@@ -85,14 +87,14 @@ def send_thread(mssg, s):
 		while quit == False:
 			data = raw_input()
 			print "[" + ClientA + "]> " + data
-			s.send(data)
+			Client.send(data)
 			if (data == "quit"):
 				quit = True
 	if (mssg == 2):
 		while quit == False:
 			data = raw_input()
 			print "[" + ClientA + "]> " + data
-			s.send(data)
+			CS.send(data)
 			if (data == "quit"):
 				quit = True
 	#end send_thread()
@@ -100,7 +102,7 @@ def send_thread(mssg, s):
 #Handles the Server Portion of the messanger 
 # | Server | ip | port | IV | Key | 
 def mess_server(sessionlist):
-	global logfile
+	global logfile, Client
 	ServerS = server_socket(sessionlist[2])
 	Client, ClientAddr = ServerS.accept()
 	logfile.write("Connected to: ")
@@ -110,8 +112,8 @@ def mess_server(sessionlist):
 	Client.send("Connection Established")
 	print "Connection Established"
 	logfile.write("Starting Threads\n")
-	t1 = Thread(target=recv_thread, args=(1,ServerS,))
-	t2 = Thread(target=send_thread, args=(1,ServerS,))
+	t1 = Thread(target=recv_thread, args=(1,))
+	t2 = Thread(target=send_thread, args=(1,))
 	t1.start()
 	t2.start()
 	t1.join()
@@ -123,12 +125,12 @@ def mess_server(sessionlist):
 #Handles the Client Portion of the messanger
 # | Server | ip | port | IV | Key | 	
 def mess_client(sessionlist):
-	global logfile
-	s = client_socket(sessionlist[1], sessionlist[2])
-	print s.recv(1024)
+	global logfile, CS
+	CS = client_socket(sessionlist[1], sessionlist[2])
+	print CS.recv(1024)
 	#Create threads for sending and recv messages
-	t1 = Thread(target=recv_thread, args=(2,s,))
-	t2 = Thread(target=send_thread, args=(2,s,))
+	t1 = Thread(target=recv_thread, args=(2,))
+	t2 = Thread(target=send_thread, args=(2,))
 	t1.start()
 	t2.start()
 	t1.join()
