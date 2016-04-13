@@ -11,8 +11,9 @@ from Crypto.PublicKey import RSA
 i = 0
 listlength = 5
 nextopenspot = 0
-#Open file for logging
 logfile = ""
+#Open file for logging
+
 
 #gets the local IP address of the server on whichever connection
 #has internet
@@ -58,13 +59,16 @@ def search_list(mylist, namea, nameb):
 			if nameb == mylist[x][0]:
 				flag = True
 				i = x
-				logfile.write(namea, ' found in list with', nameb, '\n')
+				logfile.write(namea)
+				logfile.write(' found in list with')
+				logfile.write(nameb)
+				logfile.write('\n')
 		x = x + 1
 	return flag
 	#done search_list()
 
 #find next empty spot in list
-def find_next_open():
+def find_next_open(mylist):
 	x = 0 
 	flag = True
 	while x < listlength and flag == True:
@@ -80,12 +84,14 @@ def client_exchange(sessionlist, ServerS):
 	global i
 	#Accept a client
 	Client, ClientAddr = ServerS.accept()
-	logfile.write("Connected to: ", ClientAddr ,"\n")
+	logfile.write("Connected to: ")
+	logfile.write(repr(ClientAddr))
+	logfile.write("\n")
 	#getting info from Client
 	#order is UserA, UserB, ClientIP
 	recvdata = ["" for x in range(3)]
-	recv_data_tmp = Client.recv(1024)
-	recvdata = pickle.load(recv_data_tmp)
+	recv_data_tmp = Client.recv(2048)
+	recvdata = pickle.loads(recv_data_tmp)
 	#pass client name and sessionlist to search. 
 	#return False if not in list
 	#return True if in list
@@ -107,7 +113,7 @@ def client_exchange(sessionlist, ServerS):
 	#if client is not in connection list
 	#send True for server, port, iv, key
 	if (check == False):
-		find_next_open()
+		find_next_open(sessionlist)
 		#add to list in sessionlist[nextopenspot][0...]
 		sessionlist[nextopenspot][0] = recvdata[0]
 		sessionlist[nextopenspot][1] = recvdata[1]
@@ -117,7 +123,7 @@ def client_exchange(sessionlist, ServerS):
 		sessionlist[nextopenspot][5] = Random.new().read(16)
 		#info to be sent to client
 		#| True for server | port | iv | key |
-		outdata = ["" for x in range(4)]
+		outdata = ["" for x in range(5)]
 		outdata[0] = True
 		outdata[1] = sessionlist[nextopenspot][3]
 		outdata[2] = sessionlist[nextopenspot][4]
@@ -150,3 +156,4 @@ def main():
 
 if __name__ == '__main__':
 	main()
+	
