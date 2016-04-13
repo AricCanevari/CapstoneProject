@@ -153,6 +153,8 @@ def server_exchange(ServerAddr):
 	# | Server | ip | port | IV | Key | 
 	recvdata = pickle.loads(recv_data_tmp)
 	#if recvdata[0] true: mess_server() else: mess_client()
+	logfile.write(recvdata)
+	logfile.write("\n")
 	if recvdata[0] == True:
 		mess_server(recvdata)
 	if recvdata[0] == False:
