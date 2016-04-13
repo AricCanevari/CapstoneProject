@@ -154,9 +154,9 @@ def server_exchange(ServerAddr):
 	recvdata = pickle.loads(recv_data_tmp)
 	#if recvdata[0] true: mess_server() else: mess_client()
 	if recvdata[0] == True:
-		mess_server()
+		mess_server(recvdata)
 	if recvdata[0] == False:
-		mess_client()
+		mess_client(recvdata)
 	s.close()
 	#end server_exchange()
 
