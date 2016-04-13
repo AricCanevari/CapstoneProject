@@ -139,7 +139,6 @@ def mess_client(sessionlist):
 
 def server_exchange(ServerAddr):
 	global logfile, ClientA, ClientB
-	s = client_socket(ServerAddr, 5000)
 	#order is UserA, UserB, ClientIP
 	senddata = ["" for x in range(3)]
 	print "Enter Your User Name:"
@@ -150,6 +149,7 @@ def server_exchange(ServerAddr):
 	ClientB = senddata[1]
 	senddata[2] = get_local_ip()
 	send_data_tmp = pickle.dumps(senddata)
+	s = client_socket(ServerAddr, 5000)
 	s.send(str(send_data_tmp))
 	recvdata = ["" for x in range(5)]
 	recv_data_tmp = s.recv(2048)
