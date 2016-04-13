@@ -71,7 +71,7 @@ def recv_thread(mssg):
 				CS.close()
 			data = Client.recv(1024)
 			print "Encrypted: " + data
-			print "\r[" + ClientB + "]: " + cipher2.decrypt(data)
+			print "\r[" + ClientB + "]: " + cipher1.decrypt(data)
 			
 	if (mssg == 2):
 		while True:
@@ -102,7 +102,7 @@ def send_thread(mssg):
 		while quit == False:
 			data = raw_input()
 			print "[" + ClientA + "]> " + data
-			CS.send(cipher1.encrypt(data))
+			CS.send(cipher2.encrypt(data))
 			if (data == "quit"):
 				quit = True
 	#end send_thread()
