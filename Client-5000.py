@@ -143,7 +143,7 @@ def mess_client(sessionlist):
 	t2.start()
 	t1.join()
 	t2.join()
-	cs.close()
+	CS.close()
 	logfile.write("All sockets Closed\n")
 	#end mess_client()
 
