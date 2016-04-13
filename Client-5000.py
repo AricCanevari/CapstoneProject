@@ -48,7 +48,6 @@ def server_socket(Port):
 	logfile.write('Creating Server Socket\n')
 	ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	logfile.write('Socket built succesfully\n')
-	Port = 5000
 	Address = get_local_ip()
 	ServerS.bind((Address, Port))
 	logfile.write('Waiting for a Connection\n')
