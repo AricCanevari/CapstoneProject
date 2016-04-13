@@ -66,9 +66,8 @@ def server_exchange(ServerAddr):
 	s.send(str(send_data_tmp))
 	recvdata = ["" for x in range(5)]
 	recv_data_tmp = s.recv(2048)
-	print recv_data_tmp #<<<<<<<<<<<<<<REMOVE THIS LINE AFTER FIXED>>>>>>>>>>>>>>>
+	# | Server | ip | port | IV | Key | 
 	recvdata = pickle.loads(recv_data_tmp)
-	print recvdata
 	s.close()
 	#end server_exchange()
 
