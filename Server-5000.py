@@ -40,7 +40,7 @@ def create_server_connection():
 	ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	logfile.write('Socket built succesfully\n')
 	Port = 5000
-	Address = "127.0.0.1"#get_local_ip()
+	Address = get_local_ip()
 	ServerS.bind((Address, Port))
 	ServerS.listen(5)
 	return ServerS
