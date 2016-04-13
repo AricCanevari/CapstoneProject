@@ -65,14 +65,14 @@ def recv_thread(mssg, s):
 			if (data == "quit"):
 				quit = True #not working, Why??
 			data = s.recv(1024)
-			print "\r[", ClientB, "]: ", data
+			print "\r[" + ClientB + "]: " + data
 			
 	if (mssg == 2):
 		while True:
 			if (data == "quit"):
 				quit = True
 			data = s.recv(1024)
-			print "\r[", ClientB, "]: ", data
+			print "\r[" + ClientB + "]: " + data
 	#end recv_thread()
 
 #Used from the threading statment. It will send whenever it gets a message
@@ -84,14 +84,14 @@ def send_thread(mssg, s):
 	if (mssg == 1):
 		while quit == False:
 			data = raw_input()
-			print "[", ClientA, "]> ", data
+			print "[" + ClientA + "]> " + data
 			s.send(data)
 			if (data == "quit"):
 				quit = True
 	if (mssg == 2):
 		while quit == False:
 			data = raw_input()
-			print "[", ClientA, "]> ", data
+			print "[" + ClientA + "]> " + data
 			s.send(data)
 			if (data == "quit"):
 				quit = True
@@ -107,6 +107,8 @@ def mess_server(sessionlist):
 	logfile.write(repr(ClientAddr))
 	logfile.write("\n")
 	#Create threads for sending and recv messages
+	Client.send("Connection Established")
+	print "Connection Established"
 	logfile.write("Starting Threads\n")
 	t1 = Thread(target=recv_thread, args=(1,ServerS,))
 	t2 = Thread(target=send_thread, args=(1,ServerS,))
@@ -123,6 +125,8 @@ def mess_server(sessionlist):
 def mess_client(sessionlist):
 	global logfile
 	s = client_socket(sessionlist[1], sessionlist[2])
+	print s.recv(1024)
+	#Create threads for sending and recv messages
 	t1 = Thread(target=recv_thread, args=(2,s,))
 	t2 = Thread(target=send_thread, args=(2,s,))
 	t1.start()
