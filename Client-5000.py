@@ -98,7 +98,6 @@ def send_thread(mssg):
 			Client.send(cipher1.encrypt(data))
 			if (data == "quit"):
 				quit = True
-				CS.close()
 	if (mssg == 2):
 		while quit == False:
 			data = raw_input()
@@ -106,7 +105,6 @@ def send_thread(mssg):
 			CS.send(cipher1.encrypt(data))
 			if (data == "quit"):
 				quit = True
-				CS.close()
 	#end send_thread()
 
 #Handles the Server Portion of the messanger 
