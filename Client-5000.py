@@ -79,7 +79,7 @@ def recv_thread(mssg):
 				quit = True
 				CS.close()
 			data = CS.recv(1024)
-			if not data
+			if (not data):
 				break
 			print "Encrypted: " + data
 			print "\r[" + ClientB + "]: " + cipher2.decrypt(data)
