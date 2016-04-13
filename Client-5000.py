@@ -15,6 +15,8 @@ ClientA = ""
 ClientB = ""
 Client = ""
 CS = ""
+cipher1 = ""
+cipher2 = ""
 
 #Gets the local IP Address of the computer
 def get_local_ip():
@@ -58,7 +60,7 @@ def server_socket(Port):
 	
 #Used from the threading statment. It will continuously wait for a message
 def recv_thread(mssg):
-	global ClientB, CS, Client
+	global ClientB, CS, Client, cipher1
 	quit = False
 	data = ""
 	print mssg
@@ -67,19 +69,19 @@ def recv_thread(mssg):
 			if (data == "quit"):
 				quit = True #not working, Why??
 			data = Client.recv(1024)
-			print "\r[" + ClientB + "]: " + data
+			print "\r[" + ClientB + "]: " + cipher2.decrypt(data)
 			
 	if (mssg == 2):
 		while True:
 			if (data == "quit"):
 				quit = True
 			data = CS.recv(1024)
-			print "\r[" + ClientB + "]: " + data
+			print "\r[" + ClientB + "]: " + cipher2.decrypt(data)
 	#end recv_thread()
 
 #Used from the threading statment. It will send whenever it gets a message
 def send_thread(mssg):
-	global ClientA, CS, ServerS
+	global ClientA, CS, ServerS, cipher2
 	quit = False
 	data = ""
 	print mssg
@@ -87,14 +89,14 @@ def send_thread(mssg):
 		while quit == False:
 			data = raw_input()
 			print "[" + ClientA + "]> " + data
-			Client.send(data)
+			Client.send(cipher1.encrypt(data))
 			if (data == "quit"):
 				quit = True
 	if (mssg == 2):
 		while quit == False:
 			data = raw_input()
 			print "[" + ClientA + "]> " + data
-			CS.send(data)
+			CS.send(cipher1.encrypt(data))
 			if (data == "quit"):
 				quit = True
 	#end send_thread()
@@ -140,7 +142,7 @@ def mess_client(sessionlist):
 	#end mess_client()
 
 def server_exchange(ServerAddr):
-	global logfile, ClientA, ClientB
+	global logfile, ClientA, ClientB, cipher1, cipher2
 	#order is UserA, UserB, ClientIP
 	senddata = ["" for x in range(3)]
 	print "Enter Your User Name:"
@@ -157,6 +159,9 @@ def server_exchange(ServerAddr):
 	recv_data_tmp = s.recv(2048)
 	# | Server | ip | port | IV | Key | 
 	recvdata = pickle.loads(recv_data_tmp)
+	#creating ciphers
+	cipher1 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[4])
+	cipher2 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[4])
 	#if recvdata[0] true: mess_server() else: mess_client()
 	logfile.write(str(recvdata))
 	logfile.write("\n")
@@ -172,7 +177,7 @@ def main():
 	check_log_dir()
 	logfile = open('/var/log/hermes/connection.log', 'a+')
 	logfile.write("***File Opened***\n")
-	ServerAddr = "67.241.38.178" #"127.0.0.1"
+	ServerAddr = "67.241.38.178" 
 	server_exchange(ServerAddr)
 	#end main()
 
