@@ -108,8 +108,8 @@ def mess_server(sessionlist):
 	logfile.write("\n")
 	#Create threads for sending and recv messages
 	logfile.write("Starting Threads\n")
-	t1 = Thread(target=recvthread, args=(1,ServerS,))
-	t2 = Thread(target=sendthread, args=(1,ServerS,))
+	t1 = Thread(target=recv_thread, args=(1,ServerS,))
+	t2 = Thread(target=send_thread, args=(1,ServerS,))
 	t1.start()
 	t2.start()
 	t1.join()
@@ -123,8 +123,8 @@ def mess_server(sessionlist):
 def mess_client(sessionlist):
 	global logfile
 	s = client_socket(sessionlist[1], sessionlist[2])
-	t1 = Thread(target=recvthread, args=(2,s,))
-	t2 = Thread(target=sendthread, args=(2,s,))
+	t1 = Thread(target=recv_thread, args=(2,s,))
+	t2 = Thread(target=send_thread, args=(2,s,))
 	t1.start()
 	t2.start()
 	t1.join()
