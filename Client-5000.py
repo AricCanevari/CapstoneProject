@@ -17,6 +17,7 @@ Client = ""
 CS = ""
 cipher1 = ""
 cipher2 = ""
+quit = ""
 
 #Gets the local IP Address of the computer
 def get_local_ip():
@@ -68,7 +69,6 @@ def recv_thread(mssg):
 		while quit == False:
 			if (cipher2.decrypt(data) == "quit"):
 				quit = True #not working, Why??
-				CS.close()
 			data = Client.recv(1024)
 			print "Encrypted: " + data
 			print "\r[" + ClientB + "]: " + cipher1.decrypt(data)
@@ -77,7 +77,6 @@ def recv_thread(mssg):
 		while True:
 			if (cipher2.decrypt(data) == "quit"):
 				quit = True
-				CS.close()
 			data = CS.recv(1024)
 			if (not data):
 				break
