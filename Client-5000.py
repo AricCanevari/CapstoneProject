@@ -69,6 +69,7 @@ def recv_thread(mssg):
 			if (data == "quit"):
 				quit = True #not working, Why??
 			data = Client.recv(1024)
+			print "Encrypted: " + data
 			print "\r[" + ClientB + "]: " + cipher2.decrypt(data)
 			
 	if (mssg == 2):
@@ -76,6 +77,7 @@ def recv_thread(mssg):
 			if (data == "quit"):
 				quit = True
 			data = CS.recv(1024)
+			print "Encrypted: " + data
 			print "\r[" + ClientB + "]: " + cipher2.decrypt(data)
 	#end recv_thread()
 
