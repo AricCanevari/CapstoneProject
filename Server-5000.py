@@ -125,10 +125,10 @@ def client_exchange(sessionlist, ServerS):
 		#| True for server | port | iv | key |
 		outdata = ["" for x in range(5)]
 		outdata[0] = True
-		outdata[1] = sessionlist[nextopenspot][3]
-		outdata[2] = sessionlist[nextopenspot][4]
-		outdata[3] = sessionlist[nextopenspot][5]
-		outdata[4] = "filler"
+		outdata[1] = "filler"
+		outdata[2] = sessionlist[nextopenspot][3]
+		outdata[3] = sessionlist[nextopenspot][4]
+		outdata[4] = sessionlist[nextopenspot][5]
 		out_data = pickle.dumps(outdata)
 		Client.send(out_data)
 	Client.close()
