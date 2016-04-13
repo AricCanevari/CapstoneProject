@@ -1,83 +1,152 @@
 #!/usr/bin/python
+import os
 import socket
 import subprocess
+import pickle
 from Crypto import Random
+from Crypto.Cipher import AES
 from Crypto.PublicKey import RSA
 
-#Gets the local IP address of server and returns it
-#def encrypt_data(data, user):
-	
-#def decrypt_data(data):
-	
+#global Variables
+i = 0
+listlength = 5
+nextopenspot = 0
+#Open file for logging
+logfile = ""
+
+#gets the local IP address of the server on whichever connection
+#has internet
 def get_local_ip():
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	s.connect(("gmail.com",80))
 	Address = (s.getsockname()[0])
 	s.close()
 	return Address
-	
-#Creates the Server Socket for messaging returns server socket
+
+#check for zeus directory, create it if it doesnt exist
+def check_log_dir():
+	global logfile
+	if not os.path.exists('/var/log/zeus'):
+		print 'zeus not found, creating directory\n'
+		os.makedirs('/var/log/zeus')
+		print 'Directory created\n'
+	#done check_log_dir()
+
+#creates the server socket and leaves it in the listening state
 def create_server_connection():
+	global logfile
+	logfile.write('Creating Server Socket\n')
 	ServerS = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	logfile.write('Socket built succesfully\n')
 	Port = 5000
+	Address = "127.0.0.1"#get_local_ip()
 	ServerS.bind((Address, Port))
 	ServerS.listen(5)
 	return ServerS
+	#done create_server_connection():
 
-#Takes connections from the clients then connects them to each other
-def connect_with_clients():
-	clientport = "5005"
-	a = 0
-	while (a < 2):
-		Client, ClientAddr = ServerS.accept()
-		print "Got Connection from", ClientAddr
-		x = "Connected to Server"
-		Client.send(x)
-		ClientIP = Client.recv(1024)
-		print "ClientIP recv"
-		ClientUN = Client.recv(1024)
-		print "ClientUN recv"
-#		ClientCT = Client.recv(1024) #Code is freezing here? why?? removing to test
-#		print "ClientCT recv"
-		if (a == 0):
-			print "Entered if a = 0"
-			outgoing = "true"
-			Client.send(outgoing)
-			print Client.recv(1024)
-			Client.send(clientport)
-			ClientAIP = ClientIP
-			a = 1
-		if (a == 1):
-			print "Entered if a = 1"
-			outgoing = "false"
-			Client.send(outgoing)
-			print Client.recv(1024)#
-			print "Server Version of Client-Server Address" + ClientAIP
-			Client.send(ClientAIP) #
-			print Client.recv(1024) #
-			Client.send(clientport) #
-			print "Server Version of Port: " + clientport
-		#offer a break for the server
-			b = raw_input("Enter c to continue, q to quit")
-			if b == "c":
-				a = 0	
-			if b == "q":
-				a = 2
-			else:
-				a = 2
-		Client.close()
-		
-	ServerS.close()
-	return
+#Searches the list for the username
+def search_list(mylist, namea, nameb):
+	global logfile
+	global listlength
+	global i
+	global nextopenspot
+	flag = False
+	x = 0
+	while x < listlength:
+		if namea == mylist[x][1]:
+			if nameb == mylist[x][0]:
+				flag = True
+				i = x
+				logfile.write(namea, ' found in list with', nameb, '\n')
+		x = x + 1
+	return flag
+	#done search_list()
 
-	
-#-------------------------------------------------------------------
-#        	Start Calling Functions for use!
-#-------------------------------------------------------------------
+#find next empty spot in list
+def find_next_open():
+	x = 0 
+	flag = True
+	while x < listlength and flag == True:
+		if mylist[x][0] == '*':
+			nextopenspot = x
+			flag = False
+		x = x + 1
+	#done find_next_open()
 
-Address = get_local_ip()
-ServerS = create_server_connection()
-connect_with_clients()
 
-#Creates a connection to get public address of itself
-#Address = subprocess.check_output("wget http://people.sunyit.edu/~greenli/ip.php -qO -", shell=True)
+def client_exchange(sessionlist, ServerS):
+	global logfile
+	global i
+	#Accept a client
+	Client, ClientAddr = ServerS.accept()
+	logfile.write("Connected to: ", ClientAddr ,"\n")
+	#getting info from Client
+	#order is UserA, UserB, ClientIP
+	recvdata = ["" for x in range(3)]
+	recv_data_tmp = Client.recv(1024)
+	recvdata = pickle.load(recv_data_tmp)
+	#pass client name and sessionlist to search. 
+	#return False if not in list
+	#return True if in list
+	check = search_list(sessionlist, recvdata[0], recvdata[1])
+	#if client is in connection list
+	#send False for server, ip to connect on, port to connect to, iv, key
+	if (check == True):
+		#info to be sent to client
+		#| False for server | ip to connect to | port | iv | key |		
+		outdata = ["" for x in range(5)]
+		outdata[0] = False
+		outdata[1] = sessionlist[i][2]
+		outdata[2] = sessionlist[i][3]
+		outdata[3] = sessionlist[i][4]
+		outdata[4] = sessionlist[i][5]
+		out_data = pickle.dumps(outdata)
+		Client.send(out_data)
+		#remove from list b/c session was created
+	#if client is not in connection list
+	#send True for server, port, iv, key
+	if (check == False):
+		find_next_open()
+		#add to list in sessionlist[nextopenspot][0...]
+		sessionlist[nextopenspot][0] = recvdata[0]
+		sessionlist[nextopenspot][1] = recvdata[1]
+		sessionlist[nextopenspot][2] = recvdata[2]
+		sessionlist[nextopenspot][3] = 5005
+		sessionlist[nextopenspot][4] = Random.new().read(AES.block_size)
+		sessionlist[nextopenspot][5] = Random.new().read(16)
+		#info to be sent to client
+		#| True for server | port | iv | key |
+		outdata = ["" for x in range(4)]
+		outdata[0] = True
+		outdata[1] = sessionlist[nextopenspot][3]
+		outdata[2] = sessionlist[nextopenspot][4]
+		outdata[3] = sessionlist[nextopenspot][5]
+		outdata[4] = "filler"
+		out_data = pickle.dumps(outdata)
+		Client.send(out_data)
+	Client.close()
+	return sessionlist
+	#done client_excange()-
+
+def main():
+	#Definition of Variables
+	#	sessionlist: list for tracking connections
+	global listlength
+	global logfile
+	check_log_dir()
+	logfile = open('/var/log/zeus/connection.log', 'a+')
+	logfile.write("***File Opened***\n")
+	# | ClientA(server) | ClientB(Client) | ClientAIP | Port | IV | Key
+	sessionlist = [["*" for x in range(6)] for x in range(listlength)]
+	#Start Program
+	ServerS = create_server_connection()
+	while True:
+		sessionlist = client_exchange(sessionlist, ServerS)
+		#done while
+	logfile.write("***Closeing File***\n")
+	logfile.close()
+	#done main()
+
+if __name__ == '__main__':
+	main()
