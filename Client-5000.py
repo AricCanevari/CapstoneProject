@@ -94,14 +94,14 @@ def send_thread(mssg):
 	if (mssg == 1):
 		while quit == False:
 			data = raw_input()
-			print "[" + ClientA + "]> " + data
+#			print "[" + ClientA + "]> " + data
 			Client.send(cipher1.encrypt(data))
 			if (data == "quit"):
 				quit = True
 	if (mssg == 2):
 		while quit == False:
 			data = raw_input()
-			print "[" + ClientA + "]> " + data
+#			print "[" + ClientA + "]> " + data
 			CS.send(cipher2.encrypt(data))
 			if (data == "quit"):
 				quit = True
