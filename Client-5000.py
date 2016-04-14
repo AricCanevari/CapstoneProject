@@ -3,6 +3,9 @@ import os
 import socket
 import subprocess
 import pickle
+import time
+import readline
+import sys
 from threading import Thread
 from Crypto import Random
 from Crypto.Cipher import AES
