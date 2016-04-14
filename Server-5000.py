@@ -109,6 +109,13 @@ def client_exchange(sessionlist, ServerS):
 		outdata[4] = sessionlist[i][5]
 		out_data = pickle.dumps(outdata)
 		Client.send(out_data)
+		sessionlist[i][0] = "*"
+		sessionlist[i][1] = "*"
+		sessionlist[i][2] = "*"
+		sessionlist[i][3] = "*"
+		sessionlist[i][4] = "*"
+		sessionlist[i][5] = "*"
+		logfile.write(str(sessionlist))
 		#remove from list b/c session was created
 	#if client is not in connection list
 	#send True for server, port, iv, key
