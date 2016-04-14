@@ -78,7 +78,7 @@ def recv_thread(mssg):
 				break
 #			print "Encrypted: " + data_enc
 			sys.stdout.write('\r'+' '*(len(readline.get_line_buffer())+2)+'\r')
-			print "\v\r[" + ClientB + "]: " + data_unenc
+			print "[" + ClientB + "]: " + data_unenc
 			sys.stdout.write(prompt + readline.get_line_buffer())
 			sys.stdout.flush()
 			
