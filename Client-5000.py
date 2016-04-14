@@ -73,7 +73,7 @@ def recv_thread(mssg):
 		while quit == False:
 			data_enc = Client.recv(1024)
 			data_unenc = cipher2.decrypt(data_enc)
-			if (data_unenc == "quit"):
+			if (data_unenc == "quit()"):
 				quit = True
 				break
 #			print "Encrypted: " + data_enc
@@ -86,7 +86,7 @@ def recv_thread(mssg):
 		while quit == False:
 			data_enc = CS.recv(1024)
 			data_unenc = cipher1.decrypt(data_enc)
-			if (data_unenc == "quit"):
+			if (data_unenc == "quit()"):
 				quit = True
 				break
 #			print "Encrypted: " + data_enc
@@ -107,14 +107,14 @@ def send_thread(mssg):
 			data = raw_input(prompt)
 #			print "[" + ClientA + "]> " + data
 			Client.send(cipher1.encrypt(data))
-			if (data == "quit"):
+			if (data == "quit()"):
 				quit = True
 	if (mssg == 2):
 		while quit == False:
 			data = raw_input(prompt)
 #			print "[" + ClientA + "]> " + data
 			CS.send(cipher2.encrypt(data))
-			if (data == "quit"):
+			if (data == "quit()"):
 				quit = True
 	#end send_thread()
 
