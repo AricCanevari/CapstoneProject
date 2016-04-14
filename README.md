@@ -14,11 +14,12 @@ Parts done:
 
 Client Server exchange
 Client to Client Messaging
-
+database/list allowing other users to chat
+user to user encryption
 
 Parts to work on:
 
-database/list allowing other users to chat, usercreation/ServerKey database, encryption, connection reversal(allowing connections through nat)
+user to server encryption, usercreation/ServerKey database, connection reversal(allowing connections through nat)
 
 
 
