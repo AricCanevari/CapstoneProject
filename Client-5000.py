@@ -90,19 +90,18 @@ def recv_thread(mssg):
 def send_thread(mssg):
 	global ClientA, CS, ServerS, cipher1, cipher2, quit
 	data = ""
+	prompt = "[" + ClientA + "]: "
 	print mssg
 	if (mssg == 1):
 		while quit == False:
-			prompt = "[" + ClientA + "]: "
-			data = raw_input()
+			data = raw_input(prompt)
 #			print "[" + ClientA + "]> " + data
 			Client.send(cipher1.encrypt(data))
 			if (data == "quit"):
 				quit = True
 	if (mssg == 2):
 		while quit == False:
-			prompt = "[" + ClientA + "]: "
-			data = raw_input()
+			data = raw_input(prompt)
 #			print "[" + ClientA + "]> " + data
 			CS.send(cipher2.encrypt(data))
 			if (data == "quit"):
