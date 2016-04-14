@@ -68,7 +68,7 @@ def recv_thread(mssg):
 	data_enc = ""
 	data_unenc = ""
 	prompt = "[" + ClientA + "]: "
-	print mssg
+#	print mssg
 	if (mssg == 1):
 		while quit == False:
 			data_enc = Client.recv(1024)
@@ -101,7 +101,7 @@ def send_thread(mssg):
 	global ClientA, CS, ServerS, cipher1, cipher2, quit
 	data = ""
 	prompt = "[" + ClientA + "]: "
-	print mssg
+#	print mssg
 	if (mssg == 1):
 		while quit == False:
 			data = raw_input(prompt)
