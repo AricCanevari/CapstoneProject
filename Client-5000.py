@@ -93,7 +93,7 @@ def send_thread(mssg):
 	print mssg
 	if (mssg == 1):
 		while quit == False:
-			print "[" + ClientA + "]: "
+			prompt = "[" + ClientA + "]: "
 			data = raw_input()
 #			print "[" + ClientA + "]> " + data
 			Client.send(cipher1.encrypt(data))
@@ -101,7 +101,7 @@ def send_thread(mssg):
 				quit = True
 	if (mssg == 2):
 		while quit == False:
-			print "[" + ClientA + "]: "
+			prompt = "[" + ClientA + "]: "
 			data = raw_input()
 #			print "[" + ClientA + "]> " + data
 			CS.send(cipher2.encrypt(data))
