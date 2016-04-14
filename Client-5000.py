@@ -61,7 +61,7 @@ def server_socket(Port):
 	
 #Used from the threading statment. It will continuously wait for a message
 def recv_thread(mssg):
-	global ClientB, CS, Client, cipher1, cipher2
+	global ClientB, CS, Client, cipher1, cipher2, quit
 	quit = False
 	data = ""
 	print mssg
@@ -86,7 +86,7 @@ def recv_thread(mssg):
 
 #Used from the threading statment. It will send whenever it gets a message
 def send_thread(mssg):
-	global ClientA, CS, ServerS, cipher1, cipher2
+	global ClientA, CS, ServerS, cipher1, cipher2, quit
 	quit = False
 	data = ""
 	print mssg
