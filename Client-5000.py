@@ -17,7 +17,7 @@ Client = ""
 CS = ""
 cipher1 = ""
 cipher2 = ""
-quit = ""
+quit = False
 
 #Gets the local IP Address of the computer
 def get_local_ip():
@@ -62,32 +62,33 @@ def server_socket(Port):
 #Used from the threading statment. It will continuously wait for a message
 def recv_thread(mssg):
 	global ClientB, CS, Client, cipher1, cipher2, quit
-	quit = False
-	data = ""
+	data_enc = ""
+	data_unenc = ""
 	print mssg
 	if (mssg == 1):
 		while quit == False:
-#			if (cipher2.decrypt(data) == "quit"):
-#				quit = True #not working, Why??
-			data = Client.recv(1024)
-			print "Encrypted: " + data
-			print "\r[" + ClientB + "]: " + cipher2.decrypt(data)
+			data_enc = Client.recv(1024)
+			data_unenc = cipher2.decrypt(data_enc)
+			if (data_unenc == "quit"):
+				quit = True
+				break
+			print "Encrypted: " + data_enc
+			print "\r[" + ClientB + "]: " + data_unenc
 			
 	if (mssg == 2):
-		while True:
-#			if (cipher2.decrypt(data) == "quit"):
-#				quit = True
-			data = CS.recv(1024)
-			if (not data):
+		while quit == False:
+			data_enc = CS.recv(1024)
+			data_unenc = cipher1.decrypt(data_enc)
+			if (data_unenc == "quit"):
+				quit = True
 				break
-			print "Encrypted: " + data
-			print "\r[" + ClientB + "]: " + cipher1.decrypt(data)
+			print "Encrypted: " + data_enc
+			print "\r[" + ClientB + "]: " + data_unenc
 	#end recv_thread()
 
 #Used from the threading statment. It will send whenever it gets a message
 def send_thread(mssg):
 	global ClientA, CS, ServerS, cipher1, cipher2, quit
-	quit = False
 	data = ""
 	print mssg
 	if (mssg == 1):
