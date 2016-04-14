@@ -73,7 +73,7 @@ def recv_thread(mssg):
 				quit = True
 				break
 #			print "Encrypted: " + data_enc
-			print "\r[" + ClientB + "]: " + data_unenc
+			print "\v[" + ClientB + "]: " + data_unenc
 			
 	if (mssg == 2):
 		while quit == False:
@@ -83,7 +83,7 @@ def recv_thread(mssg):
 				quit = True
 				break
 #			print "Encrypted: " + data_enc
-			print "\r[" + ClientB + "]: " + data_unenc
+			print "\v[" + ClientB + "]: " + data_unenc
 	#end recv_thread()
 
 #Used from the threading statment. It will send whenever it gets a message
