@@ -39,9 +39,9 @@ def check_log_dir():
 
 def client_socket(Server_Address, Server_Port):
 	global logfile 
-	logfile.write('Createing Clinet Socket\n')
+	logfile.write('Creating Client Socket\n')
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	logfile.write('Clinet Socket Created\n')
+	logfile.write('Client Socket Created\n')
 	logfile.write('Connecting to Server\n')
 	s.connect((Server_Address, Server_Port))
 	logfile.write('Connection Created\n')
