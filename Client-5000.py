@@ -67,16 +67,16 @@ def recv_thread(mssg):
 	print mssg
 	if (mssg == 1):
 		while quit == False:
-			if (cipher2.decrypt(data) == "quit"):
-				quit = True #not working, Why??
+#			if (cipher2.decrypt(data) == "quit"):
+#				quit = True #not working, Why??
 			data = Client.recv(1024)
 			print "Encrypted: " + data
 			print "\r[" + ClientB + "]: " + cipher2.decrypt(data)
 			
 	if (mssg == 2):
 		while True:
-			if (cipher2.decrypt(data) == "quit"):
-				quit = True
+#			if (cipher2.decrypt(data) == "quit"):
+#				quit = True
 			data = CS.recv(1024)
 			if (not data):
 				break
