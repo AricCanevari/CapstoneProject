@@ -84,7 +84,7 @@ def client_exchange(sessionlist, ServerS):
 	global i
 	#Accept a client
 	Client, ClientAddr = ServerS.accept()
-	logfile.write("Connected to: ")
+	logfile.write("\nConnected to: ")
 	logfile.write(repr(ClientAddr))
 	logfile.write("\n")
 	#getting info from Client
