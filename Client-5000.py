@@ -71,7 +71,7 @@ def recv_thread(mssg):
 				quit = True #not working, Why??
 			data = Client.recv(1024)
 			print "Encrypted: " + data
-			print "\r[" + ClientB + "]: " + cipher1.decrypt(data)
+			print "\r[" + ClientB + "]: " + cipher2.decrypt(data)
 			
 	if (mssg == 2):
 		while True:
@@ -81,7 +81,7 @@ def recv_thread(mssg):
 			if (not data):
 				break
 			print "Encrypted: " + data
-			print "\r[" + ClientB + "]: " + cipher2.decrypt(data)
+			print "\r[" + ClientB + "]: " + cipher1.decrypt(data)
 	#end recv_thread()
 
 #Used from the threading statment. It will send whenever it gets a message
