@@ -60,7 +60,7 @@ def search_list(mylist, namea, nameb):
 				flag = True
 				i = x
 				logfile.write(namea)
-				logfile.write(' found in list with')
+				logfile.write(' found in list with ')
 				logfile.write(nameb)
 				logfile.write('\n')
 		x = x + 1
