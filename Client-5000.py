@@ -165,8 +165,8 @@ def server_exchange(ServerAddr):
 	# | Server | ip | port | IV | Key | 
 	recvdata = pickle.loads(recv_data_tmp)
 	#creating ciphers
-	cipher1 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[4])
-	cipher2 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[4])
+	cipher1 = AES.new(recvdata[3], AES.MODE_CFB, recvdata[4])
+	cipher2 = AES.new(recvdata[3], AES.MODE_CFB, recvdata[4])
 	#if recvdata[0] true: mess_server() else: mess_client()
 	logfile.write(str(recvdata))
 	logfile.write("\n")
