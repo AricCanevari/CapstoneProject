@@ -72,7 +72,7 @@ def recv_thread(mssg):
 			if (data_unenc == "quit"):
 				quit = True
 				break
-			print "Encrypted: " + data_enc
+#			print "Encrypted: " + data_enc
 			print "\r[" + ClientB + "]: " + data_unenc
 			
 	if (mssg == 2):
@@ -82,7 +82,7 @@ def recv_thread(mssg):
 			if (data_unenc == "quit"):
 				quit = True
 				break
-			print "Encrypted: " + data_enc
+#			print "Encrypted: " + data_enc
 			print "\r[" + ClientB + "]: " + data_unenc
 	#end recv_thread()
 
