@@ -61,9 +61,10 @@ def server_socket(Port):
 	
 #Used from the threading statment. It will continuously wait for a message
 def recv_thread(mssg):
-	global ClientB, CS, Client, cipher1, cipher2, quit
+	global ClientB, ClientA, CS, Client, cipher1, cipher2, quit
 	data_enc = ""
 	data_unenc = ""
+	prompt = "[" + ClientA + "]: "
 	print mssg
 	if (mssg == 1):
 		while quit == False:
@@ -73,7 +74,10 @@ def recv_thread(mssg):
 				quit = True
 				break
 #			print "Encrypted: " + data_enc
+			sys.stdout.write('\r'+' '*(len(readline.get_line_buffer())+2)+'\r')
 			print "\v\r[" + ClientB + "]: " + data_unenc
+			sys.stdout.write(prompt + readline.get_line_buffer())
+			sys.stdout.flush()
 			
 	if (mssg == 2):
 		while quit == False:
@@ -83,7 +87,10 @@ def recv_thread(mssg):
 				quit = True
 				break
 #			print "Encrypted: " + data_enc
-			print "\v\r[" + ClientB + "]: " + data_unenc
+			sys.stdout.write('\r'+' '*(len(readline.get_line_buffer())+2)+'\r')
+			print "[" + ClientB + "]: " + data_unenc
+			sys.stdout.write(prompt + readline.get_line_buffer())
+			sys.stdout.flush()
 	#end recv_thread()
 
 #Used from the threading statment. It will send whenever it gets a message
