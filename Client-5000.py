@@ -35,9 +35,10 @@ def get_local_ip():
 #check for hermes directory, create it if it doesnt exist
 def check_log_dir():
 	global logfile
-	if not os.path.exists('/var/log/hermes'):
-		print '/var/log/hermes not found, creating directory\n'
-		os.makedirs('/var/log/hermes')
+	hermespath = os.path.expanduser('~') + '/.hermes'
+	if not os.path.exists(hermespath):
+		print '~/.hermes not found, creating directory\n'
+		os.makedirs(hermespath)
 	#done check_log_dir()
 
 def client_socket(Server_Address, Server_Port):
@@ -192,7 +193,7 @@ def server_exchange(ServerAddr):
 def main():
 	global logfile
 	check_log_dir()
-	logfile = open('/var/log/hermes/connection.log', 'a+')
+	logfile = open(os.path.expanduser('~') + '/.hermes/connection.log', 'a+')
 	logfile.write("***File Opened***\n")
 	ServerAddr = "67.241.38.178" 
 	server_exchange(ServerAddr)
