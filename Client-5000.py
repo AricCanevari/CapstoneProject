@@ -196,6 +196,8 @@ def main():
 	logfile.write("***File Opened***\n")
 	ServerAddr = "67.241.38.178" 
 	server_exchange(ServerAddr)
+	logfile.write("***File Closed***\n")
+	logfile.close()
 	#end main()
 
 
