@@ -37,9 +37,50 @@ def check_log_dir():
 	global logfile
 	hermespath = os.path.expanduser('~') + '/.hermes'
 	if not os.path.exists(hermespath):
-		print '~/.hermes not found, creating directory\n'
+		logfile.write('~/.hermes not found, creating directory\n')
 		os.makedirs(hermespath)
 	#done check_log_dir()
+
+def check_key():
+	global logfile, ClientA
+	logfile.write('Checking For Key\n')
+	pubkeypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.pub'
+	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.key'
+	logfile.write('Public Key Path: ')
+	logfile.write(pubkeypath)
+	logfile.write('\n')
+	logfile.write('Full Key Path: ')
+	logfile.write(keypath)
+	logfile.write('\n')
+	keyfound = True
+	if not os.path.exists(pubkeypath):
+		logfile.write('Public Key Not Found\n')
+		filepub = open(pubkeypath, 'a+')
+		keyfound = False
+	else:
+		logfile.write('Found Public Key\n')
+	if not os.path.exists(keypath):
+		logfile.write('Full Key Not Found\n')
+		filekey = open(keypath, 'a+')
+		createkey = False
+	else:
+		logfile.write('Found Full Key\n')
+	return keyfound
+	#done check_key()
+	
+def create_key:
+	
+	#end create_key()
+	
+def load_key:
+	
+	return key
+	#end load_key()
+	
+def load_server_key:
+	
+	return key
+	#end load_server_key()
 
 def client_socket(Server_Address, Server_Port):
 	global logfile 
@@ -161,6 +202,10 @@ def mess_client(sessionlist):
 
 def server_exchange(ServerAddr):
 	global logfile, ClientA, ClientB, cipher1, cipher2
+	if not check_key():
+		create_key()
+	key = load_key()
+	serverkey = load_server_key()
 	#order is UserA, UserB, ClientIP
 	senddata = ["" for x in range(3)]
 	print "Enter Your User Name:"
