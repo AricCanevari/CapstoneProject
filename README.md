@@ -19,7 +19,7 @@ user to user encryption
 
 Parts to work on:
 
-user to server encryption, usercreation/ServerKey database, connection reversal(allowing connections through nat)
+user to server encryption, usercreation/ServerKey database, connection reversal/session hijacking(allowing connections through nat)
 
 
 
