@@ -27,11 +27,30 @@ def get_local_ip():
 #check for zeus directory, create it if it doesnt exist
 def check_log_dir():
 	global logfile
-	if not os.path.exists('/var/log/zeus'):
+	if not os.path.exists(os.path.expanduser('~') + '/.zeus'):
 		print 'zeus not found, creating directory\n'
-		os.makedirs('/var/log/zeus')
+		os.makedirs(os.path.expanduser('~') + '/.zeus')
 		print 'Directory created\n'
 	#done check_log_dir()
+
+def check_key():
+	global logfile
+	logfile.write('Checking For Key\n')
+	serverkeypath = os.path.expanduser('~') + '/.zeus/server.pub'
+	keyfound = True
+	if not os.path.exists(serverkeypath):
+		logfile.write('Server Key Not Found\n')
+		filekey = open(keypath, 'a+')
+		keyfound = False
+	else:
+		logfile.write('Found Server Key\n')
+	return keyfound
+
+def create_key():
+	serverkeypath = os.path.expanduser('~') + '/.hermes/server.pub'
+	dumpfile = open(serverkeypath, 'w')
+	dumpfile.write(server_key)
+	dumpfile.close
 
 #creates the server socket and leaves it in the listening state
 def create_server_connection():
