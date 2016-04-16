@@ -34,10 +34,9 @@ def get_local_ip():
 
 #check for hermes directory, create it if it doesnt exist
 def check_log_dir():
-	global logfile
 	hermespath = os.path.expanduser('~') + '/.hermes'
 	if not os.path.exists(hermespath):
-		logfile.write('~/.hermes not found, creating directory\n')
+		print '~/.hermes not found, creating directory\n'
 		os.makedirs(hermespath)
 	#done check_log_dir()
 
