@@ -75,17 +75,43 @@ def check_key():
 	return keyfound
 	#done check_key()
 	
-def create_key():
+def create_key(server_key):
+	global ClientA
+	pubkeypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.pub'
+	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.key'
+	serverkeypath = os.path.expanduser('~') + '/.hermes/server.pub'
+	password = input('Password?: ')
+	rndm = Random.new().read
+	key = RSA.generate(2048, rndm)
+	export_key = key.exportKey('PEM', password, pkcs=1)
+	export_pub_key = key.publickey().exportKey()
+	dumpfile = open(pubkeypath, 'w')
+	dumpfile.write(export_pub_key)
+	dumpfile.close
+	dumpfile = open(keypath, 'w')
+	dumpfile.write(export_key)
+	dumpfile.close
+	dumpfile = open(serverkeypath, 'w')
+	dumpfile.write(server_key)
+	dumpfile.close
 	
 	#end create_key()
 	
 def load_key():
-	
+	global ClientA
+	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.key'
+	importfile = open(keypath, 'a+')
+	key_temp = importfile.read()
+	password = input('Password?: ')
+	key = RSA.importkey(key_temp, passphrase=password)
 	return key
 	#end load_key()
 	
 def load_server_key():
-	
+	serverkeypath = os.path.expanduser('~') + '/.hermes/server.pub'
+	importfile = open(serverkeypath, 'a+')
+	key_temp = importfile.read()
+	key = RSA.importkey(key_temp)
 	return key
 	#end load_server_key()
 
@@ -209,10 +235,6 @@ def mess_client(sessionlist):
 
 def server_exchange(ServerAddr):
 	global logfile, ClientA, ClientB, cipher1, cipher2
-	if not check_key():
-		create_key()
-	key = load_key()
-	serverkey = load_server_key()
 	#order is UserA, UserB, ClientIP
 	senddata = ["" for x in range(3)]
 	print "Enter Your User Name:"
@@ -222,9 +244,15 @@ def server_exchange(ServerAddr):
 	senddata[1] = raw_input('>')
 	ClientB = senddata[1]
 	senddata[2] = get_local_ip()
-	send_data_tmp = pickle.dumps(serverkey.encrypt(senddata, 32))
 	s = client_socket(ServerAddr, 5000)
-	srvkey = s.recv(4096)
+	#recv server_pub_key
+	recv_data_tmp = s.recv(4096)
+	server_pub_key = pickle.loads(recv_data_tmp)
+	if not check_key():
+		create_key(server_pub_key)
+	key = load_key()
+	serverkey = load_server_key()
+	send_data_tmp = pickle.dumps(serverkey.encrypt(senddata, 32))
 	s.send(str(send_data_tmp))
 	recvdata = ["" for x in range(5)]
 	recv_data_tmp = s.recv(4096)
