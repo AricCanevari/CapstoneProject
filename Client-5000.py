@@ -46,6 +46,7 @@ def check_key():
 	logfile.write('Checking For Key\n')
 	pubkeypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.pub'
 	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.key'
+	serverkeypath = os.path.expanduser('~') + '/.hermes/server.pub'
 	logfile.write('Public Key Path: ')
 	logfile.write(pubkeypath)
 	logfile.write('\n')
@@ -62,22 +63,28 @@ def check_key():
 	if not os.path.exists(keypath):
 		logfile.write('Full Key Not Found\n')
 		filekey = open(keypath, 'a+')
-		createkey = False
+		keyfound = False
+	else:
+		logfile.write('Found Full Key\n')
+	if not os.path.exists(serverkeypath):
+		logfile.write('Server Key Not Found\n')
+		filekey = open(keypath, 'a+')
+		keyfound = False
 	else:
 		logfile.write('Found Full Key\n')
 	return keyfound
 	#done check_key()
 	
-def create_key:
+def create_key():
 	
 	#end create_key()
 	
-def load_key:
+def load_key():
 	
 	return key
 	#end load_key()
 	
-def load_server_key:
+def load_server_key():
 	
 	return key
 	#end load_server_key()
@@ -215,13 +222,14 @@ def server_exchange(ServerAddr):
 	senddata[1] = raw_input('>')
 	ClientB = senddata[1]
 	senddata[2] = get_local_ip()
-	send_data_tmp = pickle.dumps(senddata)
+	send_data_tmp = pickle.dumps(serverkey.encrypt(senddata, 32))
 	s = client_socket(ServerAddr, 5000)
+	srvkey = s.recv(4096)
 	s.send(str(send_data_tmp))
 	recvdata = ["" for x in range(5)]
-	recv_data_tmp = s.recv(2048)
+	recv_data_tmp = s.recv(4096)
 	# | Server | ip | port | IV | Key | 
-	recvdata = pickle.loads(recv_data_tmp)
+	recvdata = key.decrypt(pickle.loads(recv_data_tmp))
 	#creating ciphers
 	cipher1 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[3])
 	cipher2 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[3])
