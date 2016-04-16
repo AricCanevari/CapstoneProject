@@ -249,12 +249,12 @@ def server_exchange(ServerAddr):
 	senddata[2] = get_local_ip()
 	s = client_socket(ServerAddr, 5000)
 	#recv server_pub_key
-	recv_data_tmp = s.recv(4096)
-	server_pub_key = pickle.loads(recv_data_tmp)
+	server_pub_key = s.recv(4096)
 	if not check_key():
 		create_key(server_pub_key)
 	key = load_key()
 	serverkey = load_server_key()
+	senddata[3] = key.publickey().exportKey()
 	send_data_tmp = pickle.dumps(serverkey.encrypt(senddata, 32))
 	s.send(str(send_data_tmp))
 	recvdata = ["" for x in range(5)]
