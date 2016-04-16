@@ -46,12 +46,49 @@ def check_key():
 		logfile.write('Found Server Key\n')
 	return keyfound
 
+def check_client_key(ClientA, exportedkey):
+	global logfile
+	keypath = os.path.expanduser('~') + '/.zeus/' + ClientA + '.pub'
+	keyfound = True
+	if not os.path.exists(keypath):
+		logfile.write('Public Key Not Found\n')
+		dumpfile = open(keypath, 'a+')
+		logfile.write('Public Key Added for: ')
+		logfile.write(ClientA)
+		logfile.write('\n')
+		dumpfile.write(exportedkey)
+	#end check_client_key()
+
 def create_key():
-	serverkeypath = os.path.expanduser('~') + '/.hermes/server.pub'
+	serverkeypath = os.path.expanduser('~') + '/.zeus/server.pub'
 	dumpfile = open(serverkeypath, 'w')
+	rndm = Random.new().read()
+	key = RSA.generate(2048, rndm)
+	ServerPass = input("Password?: ")
+	server_key = key.exportKey('PEM', ServerPass, pkcs=1) 
 	dumpfile.write(server_key)
 	dumpfile.close
 
+
+def load_key():
+	serverkeypath = os.path.expanduser('~') + '/.zeus/server.pub'
+	loadfile = open(serverkeypath, 'a+')
+	serverkey = loadfile.read()
+	ServerPass = input("Password: ")
+	key = RSA.importKey(serverkey, ServerPass, pkcs=1)
+	loadfile.close()
+	return key
+	#end load_key()
+	
+def load_client_key(ClientA):
+	keypath = os.path.expanduser('~') + '/.zeus/' + ClientA + '.pub'
+	loadfile = open(keypath, 'a+')
+	clientkey = loadfile.read()
+	key = RSA.importKey(clientkey)
+	loadfile.close()
+	return key
+	#end load_client_key()
+	
 #creates the server socket and leaves it in the listening state
 def create_server_connection():
 	global logfile
@@ -108,9 +145,16 @@ def client_exchange(sessionlist, ServerS):
 	logfile.write("\n")
 	#getting info from Client
 	#order is UserA, UserB, ClientIP
-	recvdata = ["" for x in range(3)]
-	recv_data_tmp = Client.recv(2048)
-	recvdata = pickle.loads(recv_data_tmp)
+	if not check_key():
+		create_key()
+	serverkey = load_key()
+	pubkey = serverkey.publickey().exportKey()
+	Client.send(pubkey)
+	recvdata = ["" for x in range(4)]
+	recv_data_tmp = Client.recv(4096)
+	recvdata = serverkey.decrypt(pickle.loads(recv_data_tmp))
+	check_client_key(recvdata[0], recvdata[3])
+	clientkey = load_client_key(recvdata[0])
 	#pass client name and sessionlist to search. 
 	#return False if not in list
 	#return True if in list
@@ -126,7 +170,7 @@ def client_exchange(sessionlist, ServerS):
 		outdata[2] = sessionlist[i][3]
 		outdata[3] = sessionlist[i][4]
 		outdata[4] = sessionlist[i][5]
-		out_data = pickle.dumps(outdata)
+		out_data = pickle.dumps(clientkey.encrypt(outdata))
 		Client.send(out_data)
 		sessionlist[i][0] = "*"
 		sessionlist[i][1] = "*"
@@ -157,7 +201,7 @@ def client_exchange(sessionlist, ServerS):
 		outdata[3] = sessionlist[nextopenspot][4]
 		outdata[4] = sessionlist[nextopenspot][5]
 		out_data = pickle.dumps(outdata)
-		Client.send(out_data)
+		Client.send(clientkey.encrypt(outdata))
 	Client.close()
 	return sessionlist
 	#done client_excange()-
