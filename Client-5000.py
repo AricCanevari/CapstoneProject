@@ -53,6 +53,9 @@ def check_key():
 	logfile.write('Full Key Path: ')
 	logfile.write(keypath)
 	logfile.write('\n')
+	logfile.write('Server Key Path: ')
+	logfile.write(serverkeypath)
+	logfile.write('\n')
 	keyfound = True
 	if not os.path.exists(pubkeypath):
 		logfile.write('Public Key Not Found\n')
@@ -71,7 +74,7 @@ def check_key():
 		filekey = open(keypath, 'a+')
 		keyfound = False
 	else:
-		logfile.write('Found Full Key\n')
+		logfile.write('Found Server Key\n')
 	return keyfound
 	#done check_key()
 	
