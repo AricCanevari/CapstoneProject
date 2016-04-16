@@ -212,7 +212,7 @@ def main():
 	global listlength
 	global logfile
 	check_log_dir()
-	logfile = open(os.path.expanduser('~') + '/.zeus', 'a+')
+	logfile = open(os.path.expanduser('~') + '/.zeus/connection.log', 'a+')
 	logfile.write("***File Opened***\n")
 	# | ClientA(server) | ClientB(Client) | ClientAIP | Port | IV | Key
 	sessionlist = [["*" for x in range(6)] for x in range(listlength)]
