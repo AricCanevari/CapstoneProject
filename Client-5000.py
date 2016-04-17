@@ -247,6 +247,7 @@ def server_exchange(ServerAddr):
 	recv_data_tmp = s.recv(4096)
 	# | Server | ip | port | IV | Key | 
 	recvdata = key.decrypt(pickle.loads(recv_data_tmp))
+	print recvdata
 	#creating ciphers
 	cipher1 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[3])
 	cipher2 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[3])
