@@ -72,12 +72,10 @@ def create_key():
 	dumpfile.close
 
 
-def load_key():
+def load_key(ServerPass):
 	serverkeypath = os.path.expanduser('~') + '/.zeus/server.key'
 	loadfile = open(serverkeypath, 'a+')
 	serverkey = loadfile.read()
-	print "Enter Password for Key: "
-	ServerPass = raw_input()
 	key = RSA.importKey(serverkey, ServerPass)
 	loadfile.close()
 	return key
@@ -138,13 +136,13 @@ def find_next_open(mylist):
 	#done find_next_open()
 
 
-def client_exchange(sessionlist, ServerS):
+def client_exchange(sessionlist, ServerS, ServerPass):
 	global logfile
 	global i
 	if not check_key():
 		print "going to create_key"
 		create_key()
-	serverkey = load_key()
+	serverkey = load_key(ServerPass)
 	#Accept a client
 	Client, ClientAddr = ServerS.accept()
 	logfile.write("\nConnected to: ")
@@ -219,6 +217,8 @@ def main():
 	#	sessionlist: list for tracking connections
 	global listlength
 	global logfile
+	print "Enter Password for Key: "
+	ServerPass = raw_input()
 	check_log_dir()
 	logfile = open(os.path.expanduser('~') + '/.zeus/connection.log', 'a+')
 	logfile.write("***File Opened***\n")
@@ -227,7 +227,7 @@ def main():
 	#Start Program
 	ServerS = create_server_connection()
 	while True:
-		sessionlist = client_exchange(sessionlist, ServerS)
+		sessionlist = client_exchange(sessionlist, ServerS, ServerPass)
 		#done while
 	logfile.write("***Closeing File***\n")
 	logfile.close()
