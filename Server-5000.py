@@ -3,6 +3,7 @@ import os
 import socket
 import subprocess
 import pickle
+import sys
 from Crypto import Random
 from Crypto.Cipher import AES
 from Crypto.PublicKey import RSA
