@@ -249,6 +249,8 @@ def server_exchange(ServerAddr):
 	recvdata = key.decrypt(pickle.loads(recv_data_tmp))
 	print recvdata
 	#creating ciphers
+	print sys.getsizeof(recvdata[3])
+	print sys.getsizeof(recvdata[4])
 	cipher1 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[3])
 	cipher2 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[3])
 	#if recvdata[0] true: mess_server() else: mess_client()
