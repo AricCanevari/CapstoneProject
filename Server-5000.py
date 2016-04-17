@@ -152,9 +152,11 @@ def client_exchange(sessionlist, ServerS):
 	pubkey = serverkey.publickey().exportKey()
 	Client.send(pubkey)
 	recvdata = ["" for x in range(4)]
-	recv_data_tmp = Client.recv(10000)
+	recv_data_tmp = Client.recv(4096)
+	recv_data_tmp2 = Client.recv(4096)
 	recvdata = serverkey.decrypt(pickle.loads(recv_data_tmp))
-	check_client_key(recvdata[0], recvdata[3])
+	recvkey = serverkey.decrypt(pickle.loads(recv_data_tmp2))
+	check_client_key(recvdata[0], recvkey)
 	clientkey = load_client_key(recvdata[0])
 	#pass client name and sessionlist to search. 
 	#return False if not in list
