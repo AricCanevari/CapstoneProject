@@ -11,8 +11,6 @@ from Crypto import Random
 from Crypto.Cipher import AES
 from Crypto.PublicKey import RSA
 
-#Open file for logging
-
 logfile = ""
 ClientA = ""
 ClientB = ""
@@ -131,7 +129,6 @@ def recv_thread(mssg):
 	data_enc = ""
 	data_unenc = ""
 	prompt = "[" + ClientA + "]: "
-#	print mssg
 	if (mssg == 1):
 		while quit == False:
 			data_enc = Client.recv(1024)
@@ -139,7 +136,6 @@ def recv_thread(mssg):
 			if (data_unenc == "quit()"):
 				quit = True
 				break
-#			print "Encrypted: " + data_enc
 			sys.stdout.write('\r'+' '*(len(readline.get_line_buffer())+2)+'\r')
 			print "[" + ClientB + "]: " + data_unenc
 			sys.stdout.write(prompt + readline.get_line_buffer())
@@ -152,7 +148,6 @@ def recv_thread(mssg):
 			if (data_unenc == "quit()"):
 				quit = True
 				break
-#			print "Encrypted: " + data_enc
 			sys.stdout.write('\r'+' '*(len(readline.get_line_buffer())+2)+'\r')
 			print "[" + ClientB + "]: " + data_unenc
 			sys.stdout.write(prompt + readline.get_line_buffer())
@@ -164,18 +159,15 @@ def send_thread(mssg):
 	global ClientA, CS, ServerS, cipher1, cipher2, quit
 	data = ""
 	prompt = "[" + ClientA + "]: "
-#	print mssg
 	if (mssg == 1):
 		while quit == False:
 			data = raw_input(prompt)
-#			print "[" + ClientA + "]> " + data
 			Client.send(cipher1.encrypt(data))
 			if (data == "quit()"):
 				quit = True
 	if (mssg == 2):
 		while quit == False:
 			data = raw_input(prompt)
-#			print "[" + ClientA + "]> " + data
 			CS.send(cipher2.encrypt(data))
 			if (data == "quit()"):
 				quit = True
@@ -221,6 +213,7 @@ def mess_client(sessionlist):
 	logfile.write("All sockets Closed\n")
 	#end mess_client()
 
+#Exchange between server and clients
 def server_exchange(ServerAddr):
 	global logfile, ClientA, ClientB, cipher1, cipher2
 	#order is UserA, UserB, ClientIP
@@ -232,22 +225,27 @@ def server_exchange(ServerAddr):
 	senddata[1] = raw_input('>')
 	ClientB = senddata[1]
 	senddata[2] = get_local_ip()
+	#Creating socket to Server
 	s = client_socket(ServerAddr, 5000)
 	#recv server_pub_key
 	server_pub_key = s.recv(4096)
 	if not check_key():
 		create_key(server_pub_key)
+	#Loading private key to variable
 	key = load_key()
+	#Loading server public key to variable
 	serverkey = load_server_key()
 	send_data_tmp2 = key.publickey().exportKey()
+	#Sending array with connection info
 	s.send(pickle.dumps(senddata))
-	print s.recv(1024)
+	#ACK from server
+	tmp = s.recv(1024)
+	#Sending our public key
 	s.send(send_data_tmp2)
+	# | Server | ip | port | IV | Key |
 	recvdata = ["" for x in range(5)]
-	recv_data_tmp = s.recv(4096)
-	# | Server | ip | port | IV | Key | 
+	recv_data_tmp = s.recv(4096) 
 	recvdata = pickle.loads(key.decrypt(pickle.loads(recv_data_tmp)))
-	print recvdata
 	#creating ciphers
 	cipher1 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[3])
 	cipher2 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[3])
@@ -261,12 +259,18 @@ def server_exchange(ServerAddr):
 	s.close()
 	#end server_exchange()
 
+##############################################
+#                                            #
+#       Start Main, calling functions        #
+#                                            #
+##############################################
+
 def main():
 	global logfile
 	check_log_dir()
 	logfile = open(os.path.expanduser('~') + '/.hermes/connection.log', 'a+')
 	logfile.write("***File Opened***\n")
-	ServerAddr = "67.241.38.178" 
+	ServerAddr = "67.241.38.178"
 	server_exchange(ServerAddr)
 	logfile.write("***File Closed***\n")
 	logfile.close()
