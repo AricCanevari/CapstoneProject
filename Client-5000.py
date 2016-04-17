@@ -82,9 +82,9 @@ def create_key(server_key):
 	pubkeypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.pub'
 	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.key'
 	serverkeypath = os.path.expanduser('~') + '/.hermes/server.pub'
-	password = input('Password?: ')
-	rndm = Random.new().read
-	key = RSA.generate(2048, rndm)
+	print "New Password For Key: "
+	password = raw_input()
+	key = RSA.generate(2048)
 	export_key = key.exportKey('PEM', password, pkcs=1)
 	export_pub_key = key.publickey().exportKey()
 	dumpfile = open(pubkeypath, 'w')
