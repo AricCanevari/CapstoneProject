@@ -143,15 +143,15 @@ def client_exchange(sessionlist, ServerS):
 	logfile.write("\nConnected to: ")
 	logfile.write(repr(ClientAddr))
 	logfile.write("\n")
-	#getting info from Client
-	#order is UserA, UserB, ClientIP
 	if not check_key():
 		print "going to create_key"
 		create_key()
 	serverkey = load_key()
 	pubkey = serverkey.publickey().exportKey()
 	Client.send(pubkey)
-	recvdata = ["" for x in range(4)]
+	#getting info from Client
+	#order is UserA, UserB, ClientIP
+	recvdata = ["" for x in range(3)]
 	recv_data_tmp = Client.recv(4096)
 	recv_data_tmp2 = Client.recv(4096)
 	recvdata = pickle.loads(serverkey.decrypt(recv_data_tmp))
