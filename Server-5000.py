@@ -40,7 +40,7 @@ def check_key():
 	keyfound = True
 	if not os.path.exists(serverkeypath):
 		logfile.write('Server Key Not Found\n')
-		filekey = open(keypath, 'a+')
+		filekey = open(serverkeypath, 'a+')
 		keyfound = False
 	else:
 		logfile.write('Found Server Key\n')
