@@ -87,12 +87,11 @@ def create_key(server_key):
 def load_key():
 	global ClientA
 	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.key'
-	importfile = open(keypath, 'a+')
-	key_temp = importfile.read()
-	importfile.close()
+	importfile = open(keypath, 'r')
 	print "Password For " + ClientA + " Key: "
 	password = raw_input()
-	key = RSA.importKey(key_temp, passphrase=password)
+	key = RSA.importKey(importfile.read(), passphrase=password)
+	importfile.close()
 	return key
 	#end load_key()
 	
