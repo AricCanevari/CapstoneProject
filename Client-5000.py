@@ -239,8 +239,8 @@ def server_exchange(ServerAddr):
 		create_key(server_pub_key)
 	key = load_key()
 	serverkey = load_server_key()
-	send_data_tmp = serverkey.encrypt(pickle.dumps(senddata), 32)
 	send_data_tmp2 = serverkey.encrypt(pickle.dumps(key.publickey().exportKey()), 32)
+	send_data_tmp = serverkey.encrypt(pickle.dumps(senddata), 32)
 	s.send(str(send_data_tmp))
 	s.send(str(send_data_tmp2))
 	recvdata = ["" for x in range(5)]
