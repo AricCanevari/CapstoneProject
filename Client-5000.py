@@ -239,15 +239,10 @@ def server_exchange(ServerAddr):
 		create_key(server_pub_key)
 	key = load_key()
 	serverkey = load_server_key()
-	s.send(str(serverkey.encrypt(pickle.dumps(senddata[0]), 32)))
-	temp =s.recv(1024)
-	s.send(str(serverkey.encrypt(pickle.dumps(senddata[1]), 32)))
-	temp = s.recv(1024)
-	s.send(str(serverkey.encrypt(pickle.dumps(senddata[0]), 32)))
-	temp = s.recv(1024)
 	send_data_tmp2 = pickle.dumps(key.publickey().exportKey())
-#	s.send(str(send_data_tmp))
-#	s.send(str(send_data_tmp2))
+	s.send(pickle.dumps(senddata))
+	print s.recv(1024)
+	s.send(pickle.dumps(send_data_tmp2))
 	recvdata = ["" for x in range(5)]
 	recv_data_tmp = s.recv(4096)
 	# | Server | ip | port | IV | Key | 
