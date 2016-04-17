@@ -155,7 +155,10 @@ def client_exchange(sessionlist, ServerS):
 	#order is UserA, UserB, ClientIP
 	recvdata = ["" for x in range(3)]
 	recv_data_tmp = Client.recv(4096)
+	Client.send("garbage")
+	print recv_data_tmp
 	tempkey = Client.recv(4096)
+	print tempkey
 	recvdata= pickle.loads(recv_data_tmp)
 	recvkey = pickle.loads(tempkey)
 	check_client_key(recvdata[0], recvkey)
