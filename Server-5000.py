@@ -63,7 +63,7 @@ def create_key():
 	dumpfile = open(serverkeypath, 'w')
 	key = RSA.generate(2048)
 	ServerPass = raw_input('Password?: ')
-	server_key = key.exportKey('PEM', ServerPass, pkcs=1) 
+	server_key = key.exportKey('PEM', Passphrase=ServerPass, pkcs=1) 
 	dumpfile.write(server_key)
 	dumpfile.close
 
