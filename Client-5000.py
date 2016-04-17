@@ -43,12 +43,8 @@ def check_log_dir():
 def check_key():
 	global logfile, ClientA
 	logfile.write('Checking For Key\n')
-	pubkeypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.pub'
 	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.key'
 	serverkeypath = os.path.expanduser('~') + '/.hermes/server.pub'
-	logfile.write('Public Key Path: ')
-	logfile.write(pubkeypath)
-	logfile.write('\n')
 	logfile.write('Full Key Path: ')
 	logfile.write(keypath)
 	logfile.write('\n')
@@ -56,12 +52,6 @@ def check_key():
 	logfile.write(serverkeypath)
 	logfile.write('\n')
 	keyfound = True
-	if not os.path.exists(pubkeypath):
-		logfile.write('Public Key Not Found\n')
-		filepub = open(pubkeypath, 'a+')
-		keyfound = False
-	else:
-		logfile.write('Found Public Key\n')
 	if not os.path.exists(keypath):
 		logfile.write('Full Key Not Found\n')
 		filekey = open(keypath, 'a+')
