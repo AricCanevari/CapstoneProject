@@ -209,7 +209,7 @@ def client_exchange(sessionlist, ServerS):
 		outdata[2] = sessionlist[nextopenspot][3]
 		outdata[3] = sessionlist[nextopenspot][4]
 		outdata[4] = sessionlist[nextopenspot][5]
-		Client.send(pickle.dumps(clientkey.encrypt(str(outdata),32)))
+		Client.send(pickle.dumps(clientkey.encrypt(outdata,32)))
 	Client.close()
 	return sessionlist
 	#done client_excange()-
