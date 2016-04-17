@@ -152,7 +152,7 @@ def client_exchange(sessionlist, ServerS):
 	pubkey = serverkey.publickey().exportKey()
 	Client.send(pubkey)
 	recvdata = ["" for x in range(4)]
-	recv_data_tmp = Client.recv(4096)
+	recv_data_tmp = Client.recv(10000)
 	recvdata = serverkey.decrypt(pickle.loads(recv_data_tmp))
 	check_client_key(recvdata[0], recvdata[3])
 	clientkey = load_client_key(recvdata[0])
@@ -171,7 +171,7 @@ def client_exchange(sessionlist, ServerS):
 		outdata[2] = sessionlist[i][3]
 		outdata[3] = sessionlist[i][4]
 		outdata[4] = sessionlist[i][5]
-		out_data = pickle.dumps(clientkey.encrypt(outdata))
+		out_data = pickle.dumps(clientkey.encrypt(outdata,32))
 		Client.send(out_data)
 		sessionlist[i][0] = "*"
 		sessionlist[i][1] = "*"
