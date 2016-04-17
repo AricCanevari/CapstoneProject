@@ -156,9 +156,7 @@ def client_exchange(sessionlist, ServerS):
 	recvdata = ["" for x in range(3)]
 	recv_data_tmp = Client.recv(4096)
 	Client.send("garbage")
-	print recv_data_tmp
 	recvkey = Client.recv(4096)
-	print tempkey
 	recvdata= pickle.loads(recv_data_tmp)
 	check_client_key(recvdata[0], recvkey)
 	clientkey = load_client_key(recvdata[0])
