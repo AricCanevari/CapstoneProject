@@ -36,7 +36,7 @@ def check_log_dir():
 def check_key():
 	global logfile
 	logfile.write('Checking For Key\n')
-	serverkeypath = os.path.expanduser('~') + '/.zeus/server.pub'
+	serverkeypath = os.path.expanduser('~') + '/.zeus/server.key'
 	keyfound = True
 	if not os.path.exists(serverkeypath):
 		logfile.write('Server Key Not Found\n')
@@ -59,7 +59,7 @@ def check_client_key(ClientA, exportedkey):
 	#end check_client_key()
 
 def create_key():
-	serverkeypath = os.path.expanduser('~') + '/.zeus/server.pub'
+	serverkeypath = os.path.expanduser('~') + '/.zeus/server.key'
 	dumpfile = open(serverkeypath, 'w')
 	rndm = Random.new().read(32)
 	key = RSA.generate(2048, rndm)
@@ -70,7 +70,7 @@ def create_key():
 
 
 def load_key():
-	serverkeypath = os.path.expanduser('~') + '/.zeus/server.pub'
+	serverkeypath = os.path.expanduser('~') + '/.zeus/server.key'
 	loadfile = open(serverkeypath, 'a+')
 	serverkey = loadfile.read()
 	ServerPass = input("Password: ")
