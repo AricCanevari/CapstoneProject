@@ -140,15 +140,15 @@ def find_next_open(mylist):
 def client_exchange(sessionlist, ServerS):
 	global logfile
 	global i
+	if not check_key():
+		print "going to create_key"
+		create_key()
+	serverkey = load_key()
 	#Accept a client
 	Client, ClientAddr = ServerS.accept()
 	logfile.write("\nConnected to: ")
 	logfile.write(repr(ClientAddr))
 	logfile.write("\n")
-	if not check_key():
-		print "going to create_key"
-		create_key()
-	serverkey = load_key()
 	pubkey = serverkey.publickey().exportKey()
 	Client.send(pubkey)
 	#getting info from Client
