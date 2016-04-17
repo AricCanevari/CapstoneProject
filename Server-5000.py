@@ -154,8 +154,8 @@ def client_exchange(sessionlist, ServerS):
 	recvdata = ["" for x in range(3)]
 	recv_data_tmp = Client.recv(4096)
 	recv_data_tmp2 = Client.recv(4096)
-	recvkey = pickle.loads(serverkey.decrypt(recv_data_tmp2))
 	recvdata = pickle.loads(serverkey.decrypt(recv_data_tmp))
+	recvkey = pickle.loads(serverkey.decrypt(recv_data_tmp2))
 	check_client_key(recvdata[0], recvkey)
 	clientkey = load_client_key(recvdata[0])
 	#pass client name and sessionlist to search. 
