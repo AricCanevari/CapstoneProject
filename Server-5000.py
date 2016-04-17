@@ -157,10 +157,9 @@ def client_exchange(sessionlist, ServerS):
 	recv_data_tmp = Client.recv(4096)
 	Client.send("garbage")
 	print recv_data_tmp
-	tempkey = Client.recv(4096)
+	recvkey = Client.recv(4096)
 	print tempkey
 	recvdata= pickle.loads(recv_data_tmp)
-	recvkey = pickle.loads(tempkey)
 	check_client_key(recvdata[0], recvkey)
 	clientkey = load_client_key(recvdata[0])
 	#pass client name and sessionlist to search. 
