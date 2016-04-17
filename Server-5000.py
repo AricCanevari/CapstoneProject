@@ -62,7 +62,7 @@ def create_key():
 	serverkeypath = os.path.expanduser('~') + '/.zeus/server.key'
 	dumpfile = open(serverkeypath, 'w')
 	key = RSA.generate(2048)
-	print "Enter Password:"
+	print "Enter New Password:"
 	ServerPass = raw_input()
 	server_key = key.exportKey('PEM', passphrase=ServerPass, pkcs=1) 
 	dumpfile.write(server_key)
@@ -73,7 +73,8 @@ def load_key():
 	serverkeypath = os.path.expanduser('~') + '/.zeus/server.key'
 	loadfile = open(serverkeypath, 'a+')
 	serverkey = loadfile.read()
-	ServerPass = input("Password: ")
+	print "Enter Password for Key: "
+	ServerPass = raw_input()
 	key = RSA.importKey(serverkey, ServerPass, pkcs=1)
 	loadfile.close()
 	return key
