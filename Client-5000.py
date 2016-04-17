@@ -242,7 +242,7 @@ def server_exchange(ServerAddr):
 	send_data_tmp2 = pickle.dumps(key.publickey().exportKey())
 	s.send(pickle.dumps(senddata))
 	print s.recv(1024)
-	s.send(pickle.dumps(send_data_tmp2))
+	s.send(send_data_tmp2)
 	recvdata = ["" for x in range(5)]
 	recv_data_tmp = s.recv(4096)
 	# | Server | ip | port | IV | Key | 
