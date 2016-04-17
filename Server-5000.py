@@ -196,7 +196,9 @@ def client_exchange(sessionlist, ServerS):
 		sessionlist[nextopenspot][2] = recvdata[2]
 		sessionlist[nextopenspot][3] = 5005
 		sessionlist[nextopenspot][4] = Random.new().read(AES.block_size)
+		print print sys.getsizeof(sessionlist[nextopenspot][4])
 		sessionlist[nextopenspot][5] = Random.new().read(16)
+		print print sys.getsizeof(sessionlist[nextopenspot][5])
 		logfile.write(str(sessionlist))
 		#info to be sent to client
 		#| True for server | filler | port | iv | key |
