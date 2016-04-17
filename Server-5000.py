@@ -75,7 +75,7 @@ def load_key():
 	serverkey = loadfile.read()
 	print "Enter Password for Key: "
 	ServerPass = raw_input()
-	key = RSA.importKey(serverkey, ServerPass, pkcs=1)
+	key = RSA.importKey(serverkey, ServerPass)
 	loadfile.close()
 	return key
 	#end load_key()
