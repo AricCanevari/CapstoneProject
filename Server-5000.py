@@ -40,7 +40,6 @@ def check_key():
 	keyfound = True
 	if not os.path.exists(serverkeypath):
 		logfile.write('Server Key Not Found\n')
-		filekey = open(serverkeypath, 'a+')
 		keyfound = False
 	else:
 		logfile.write('Found Server Key\n')
@@ -146,6 +145,7 @@ def client_exchange(sessionlist, ServerS):
 	#getting info from Client
 	#order is UserA, UserB, ClientIP
 	if not check_key():
+		print "going to create_key"
 		create_key()
 	serverkey = load_key()
 	pubkey = serverkey.publickey().exportKey()
