@@ -6,6 +6,7 @@ import pickle
 import time
 import readline
 import sys
+import struct
 from threading import Thread
 from Crypto import Random
 from Crypto.Cipher import AES
@@ -249,12 +250,10 @@ def server_exchange(ServerAddr):
 	recvdata = key.decrypt(pickle.loads(recv_data_tmp))
 	print recvdata
 	#creating ciphers
-	temp_IV = recvdata[3]
-	temp_key = recvdata[4]
-	print sys.getsizeof(recvdata[3])
-	print sys.getsizeof(recvdata[4])
-	cipher1 = AES.new(temp_key, AES.MODE_CFB, temp_IV)
-	cipher2 = AES.new(temp_key, AES.MODE_CFB, temp_IV)
+	print struct.calcsize(recvdata[3])
+	print struct.calcsize(recvdata[4])
+	cipher1 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[3])
+	cipher2 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[3])
 	#if recvdata[0] true: mess_server() else: mess_client()
 	logfile.write(str(recvdata))
 	logfile.write("\n")
