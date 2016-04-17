@@ -97,9 +97,9 @@ def load_key():
 	
 def load_server_key():
 	serverkeypath = os.path.expanduser('~') + '/.hermes/server.pub'
-	importfile = open(serverkeypath, 'a+')
-	key_temp = importfile.read()
-	key = RSA.importkey(key_temp)
+	importfile = open(serverkeypath, 'r')
+	key = RSA.importKey(importfile.read())
+	importfile.close()
 	return key
 	#end load_server_key()
 
