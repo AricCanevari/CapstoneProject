@@ -106,7 +106,7 @@ def load_key():
 	key_temp = importfile.read()
 	print "Password For " + ClientA + " Key: "
 	password = raw_input()
-	key = RSA.importkey(key_temp, passphrase=password)
+	key = RSA.importKey(key_temp, passphrase=password)
 	return key
 	#end load_key()
 	
