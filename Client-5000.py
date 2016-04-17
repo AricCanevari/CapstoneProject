@@ -246,8 +246,8 @@ def server_exchange(ServerAddr):
 	s.send(serverkey.encrypt(pickle.dumps(senddata[0]), 32))
 	temp = s.recv(1024)
 	send_data_tmp2 = pickle.dumps(key.publickey().exportKey())
-	s.send(str(send_data_tmp))
-	s.send(str(send_data_tmp2))
+#	s.send(str(send_data_tmp))
+#	s.send(str(send_data_tmp2))
 	recvdata = ["" for x in range(5)]
 	recv_data_tmp = s.recv(4096)
 	# | Server | ip | port | IV | Key | 
