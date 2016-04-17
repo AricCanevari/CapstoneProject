@@ -50,12 +50,14 @@ def check_client_key(ClientA, exportedkey):
 	keypath = os.path.expanduser('~') + '/.zeus/' + ClientA + '.pub'
 	keyfound = True
 	if not os.path.exists(keypath):
+		print "in check client key"
 		logfile.write('Public Key Not Found\n')
 		dumpfile = open(keypath, 'a+')
 		logfile.write('Public Key Added for: ')
 		logfile.write(ClientA)
 		logfile.write('\n')
 		dumpfile.write(exportedkey)
+		dumpfile.close()
 	#end check_client_key()
 
 def create_key():
