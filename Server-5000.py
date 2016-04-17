@@ -210,13 +210,16 @@ def client_exchange(sessionlist, ServerS, ServerPass):
 		Client.send(pickle.dumps(clientkey.encrypt(pickle.dumps(outdata),32)))
 	Client.close()
 	return sessionlist
-	#done client_excange()-
+	#done client_excange()
+
+##############################################
+#                                            #
+#       Start Main, calling functions        #
+#                                            #
+##############################################
 
 def main():
-	#Definition of Variables
-	#	sessionlist: list for tracking connections
-	global listlength
-	global logfile
+	global listlength, logfile
 	print "Enter Password for Key: "
 	ServerPass = raw_input()
 	check_log_dir()
@@ -224,6 +227,7 @@ def main():
 	logfile.write("***File Opened***\n")
 	# | ClientA(server) | ClientB(Client) | ClientAIP | Port | IV | Key
 	sessionlist = [["*" for x in range(6)] for x in range(listlength)]
+
 	#Start Program
 	ServerS = create_server_connection()
 	while True:
@@ -235,4 +239,3 @@ def main():
 
 if __name__ == '__main__':
 	main()
-	
