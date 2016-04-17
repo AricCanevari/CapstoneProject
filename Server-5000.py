@@ -62,7 +62,7 @@ def check_client_key(ClientA, exportedkey):
 def create_key():
 	serverkeypath = os.path.expanduser('~') + '/.zeus/server.pub'
 	dumpfile = open(serverkeypath, 'w')
-	rndm = Random.new().read()
+	rndm = Random.new().read(32)
 	key = RSA.generate(2048, rndm)
 	ServerPass = input("Password?: ")
 	server_key = key.exportKey('PEM', ServerPass, pkcs=1) 
