@@ -153,11 +153,11 @@ def client_exchange(sessionlist, ServerS):
 	#order is UserA, UserB, ClientIP
 	recvdata = ["" for x in range(3)]
 	recv_data_tmp1 = Client.recv(4096)
-	s.send("good")
+	Client.send("good")
 	recv_data_tmp2 = Client.recv(4096)
-	s.send("good")
+	Client.send("good")
 	recv_data_tmp3 = Client.recv(4096)
-	s.send("good")
+	Client.send("good")
 	tempkey = Client.recv(4096)
 	recvdata[0] = pickle.loads(serverkey.decrypt(recv_data_tmp1))
 	recvdata[1] = pickle.loads(serverkey.decrypt(recv_data_tmp2))
