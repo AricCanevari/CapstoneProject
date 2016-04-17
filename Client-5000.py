@@ -239,7 +239,7 @@ def server_exchange(ServerAddr):
 		create_key(server_pub_key)
 	key = load_key()
 	serverkey = load_server_key()
-	send_data_tmp2 = pickle.dumps(key.publickey().exportKey())
+	send_data_tmp2 = key.publickey().exportKey()
 	s.send(pickle.dumps(senddata))
 	print s.recv(1024)
 	s.send(send_data_tmp2)
