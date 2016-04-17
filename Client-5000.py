@@ -104,7 +104,8 @@ def load_key():
 	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.key'
 	importfile = open(keypath, 'a+')
 	key_temp = importfile.read()
-	password = input('Password?: ')
+	print "Password For " + ClientA + " Key: "
+	password = raw_input()
 	key = RSA.importkey(key_temp, passphrase=password)
 	return key
 	#end load_key()
