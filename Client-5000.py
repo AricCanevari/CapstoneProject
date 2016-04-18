@@ -113,6 +113,15 @@ def load_key():
 	return key
 	# end load_key()
 
+# Loads the pubkey into a variable
+def load_pub_key():
+	global ClientA
+	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.pubkey'
+	importfile = open(keypath, 'r')
+	key = RSA.importKey(importfile.read())
+	importfile.close()
+	return pubkey
+	
 # Loads the server key into a variable for use
 def load_server_key():
 	serverkeypath = os.path.expanduser('~') + '/.hermes/server.pub'
@@ -259,7 +268,7 @@ def server_exchange(ServerAddr):
 	key = load_key()
 	# Loading server public key to variable
 	serverkey = load_server_key()
-	send_data_tmp2 = key.publickey().exportKey()
+	send_data_tmp2 = load_pub_key()
 	# Sending array with connection info
 	s.send(pickle.dumps(senddata))
 	# ACK from server
