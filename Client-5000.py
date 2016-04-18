@@ -118,7 +118,7 @@ def load_pub_key():
 	global ClientA
 	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.pubkey'
 	importfile = open(keypath, 'r')
-	key = RSA.importKey(importfile.read())
+	key = importfile.read()
 	importfile.close()
 	return key
 	
