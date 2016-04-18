@@ -11,6 +11,7 @@ from Crypto import Random
 from Crypto.Cipher import AES
 from Crypto.PublicKey import RSA
 
+#Global variables
 logfile = ""
 ClientA = ""
 ClientB = ""
@@ -20,7 +21,7 @@ cipher1 = ""
 cipher2 = ""
 quit = False
 
-#Gets the local IP Address of the computer
+# Gets the local IP Address of the computer
 def get_local_ip():
  	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
  	s.connect(("gmail.com",80))
@@ -28,16 +29,18 @@ def get_local_ip():
  	Address = str(Address)
  	s.close()
  	return Address
- 	#End get_local_address
+ 	# end get_local_address
 
-#check for hermes directory, create it if it doesnt exist
+# check for hermes directory, create it if it doesnt exist
 def check_log_dir():
 	hermespath = os.path.expanduser('~') + '/.hermes'
 	if not os.path.exists(hermespath):
 		print '~/.hermes not found, creating directory\n'
 		os.makedirs(hermespath)
-	#done check_log_dir()
+	return
+	# done check_log_dir()
 
+# Checks for the RSA key and returns whether it already exists or not
 def check_key():
 	global logfile, ClientA
 	logfile.write('Checking For Key\n')
@@ -63,8 +66,9 @@ def check_key():
 	else:
 		logfile.write('Found Server Key\n')
 	return keyfound
-	#done check_key()
-	
+	# done check_key()
+
+# Creates the client key with a password and writes the server public key to a file
 def create_key(server_key):
 	global ClientA
 	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.key'
@@ -79,9 +83,10 @@ def create_key(server_key):
 	dumpfile = open(serverkeypath, 'w')
 	dumpfile.write(server_key)
 	dumpfile.close
-	
-	#end create_key()
-	
+	return
+	# end create_key()
+
+# Loads the key into a variable for use with the proper password
 def load_key():
 	global ClientA
 	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.key'
@@ -91,16 +96,18 @@ def load_key():
 	key = RSA.importKey(importfile.read(), passphrase=password)
 	importfile.close()
 	return key
-	#end load_key()
-	
+	# end load_key()
+
+# Loads the server key into a variable for use
 def load_server_key():
 	serverkeypath = os.path.expanduser('~') + '/.hermes/server.pub'
 	importfile = open(serverkeypath, 'r')
 	key = RSA.importKey(importfile.read())
 	importfile.close()
 	return key
-	#end load_server_key()
+	# end load_server_key()
 
+# Creates a socket and connects to the other computer who became the server
 def client_socket(Server_Address, Server_Port):
 	global logfile 
 	logfile.write('Creating Client Socket\n')
@@ -110,8 +117,9 @@ def client_socket(Server_Address, Server_Port):
 	s.connect((Server_Address, Server_Port))
 	logfile.write('Connection Created\n')
 	return s
-	#end create_socket()
+	# end create_socket()
 
+# Creates a socket and waits for the other computer to connect
 def server_socket(Port):
 	global logfile
 	logfile.write('Creating Server Socket\n')
@@ -122,6 +130,7 @@ def server_socket(Port):
 	logfile.write('Waiting for a Connection\n')
 	ServerS.listen(5)
 	return ServerS
+	# end server_socket()
 	
 #Used from the threading statment. It will continuously wait for a message
 def recv_thread(mssg):
