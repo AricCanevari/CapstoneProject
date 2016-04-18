@@ -252,7 +252,7 @@ def server_exchange(ServerAddr):
 	key = load_key()
 	# Loading server public key to variable
 	serverkey = load_server_key()
-	#send_data_tmp2 = key.publickey().exportKey()
+	send_data_tmp2 = key.publickey().exportKey()
 	# Sending array with connection info
 	s.send(pickle.dumps(senddata))
 	# ACK from server
