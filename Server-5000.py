@@ -8,32 +8,32 @@ from Crypto import Random
 from Crypto.Cipher import AES
 from Crypto.PublicKey import RSA
 
-#global Variables
+# global Variables
 i = 0
 listlength = 5
 nextopenspot = 0
 logfile = ""
-#Open file for logging
 
-
-#gets the local IP address of the server on whichever connection
-#has internet
+# gets the local IP address of the server
 def get_local_ip():
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	s.connect(("gmail.com",80))
 	Address = (s.getsockname()[0])
 	s.close()
 	return Address
+	# end get_local_ip()
 
-#check for zeus directory, create it if it doesnt exist
+# check for zeus directory, create it if it doesnt exist
 def check_log_dir():
 	global logfile
 	if not os.path.exists(os.path.expanduser('~') + '/.zeus'):
 		print 'zeus not found, creating directory\n'
 		os.makedirs(os.path.expanduser('~') + '/.zeus')
 		print 'Directory created\n'
-	#done check_log_dir()
+	return
+	# done check_log_dir()
 
+# Checks for the RSA key and returns whether it already exists or not
 def check_key():
 	global logfile
 	logfile.write('Checking For Key\n')
@@ -45,7 +45,9 @@ def check_key():
 	else:
 		logfile.write('Found Server Key\n')
 	return keyfound
+	# end check_key()
 
+# checks to see if client key exists, if it doesn't then write it
 def check_client_key(ClientA, exportedkey):
 	global logfile
 	keypath = os.path.expanduser('~') + '/.zeus/' + ClientA + '.pub'
@@ -59,8 +61,10 @@ def check_client_key(ClientA, exportedkey):
 		logfile.write('\n')
 		dumpfile.write(exportedkey)
 		dumpfile.close()
-	#end check_client_key()
+	return
+	# end check_client_key()
 
+# if key does not exist it is created
 def create_key():
 	serverkeypath = os.path.expanduser('~') + '/.zeus/server.key'
 	dumpfile = open(serverkeypath, 'w')
@@ -70,8 +74,10 @@ def create_key():
 	server_key = key.exportKey('PEM', passphrase=ServerPass, pkcs=1) 
 	dumpfile.write(server_key)
 	dumpfile.close
+	return
+	# end create_key()
 
-
+# loads the server private key
 def load_key(ServerPass):
 	serverkeypath = os.path.expanduser('~') + '/.zeus/server.key'
 	loadfile = open(serverkeypath, 'a+')
@@ -79,8 +85,9 @@ def load_key(ServerPass):
 	key = RSA.importKey(serverkey, ServerPass)
 	loadfile.close()
 	return key
-	#end load_key()
-	
+	# end load_key()
+
+# loads the client public key
 def load_client_key(ClientA):
 	keypath = os.path.expanduser('~') + '/.zeus/' + ClientA + '.pub'
 	loadfile = open(keypath, 'a+')
@@ -88,9 +95,9 @@ def load_client_key(ClientA):
 	key = RSA.importKey(clientkey)
 	loadfile.close()
 	return key
-	#end load_client_key()
+	# end load_client_key()
 	
-#creates the server socket and leaves it in the listening state
+# creates the server socket and leaves it in the listening state
 def create_server_connection():
 	global logfile
 	logfile.write('Creating Server Socket\n')
@@ -101,9 +108,9 @@ def create_server_connection():
 	ServerS.bind((Address, Port))
 	ServerS.listen(5)
 	return ServerS
-	#done create_server_connection():
+	# done create_server_connection():
 
-#Searches the list for the username
+# Searches the list for the username
 def search_list(mylist, namea, nameb):
 	global logfile
 	global listlength
@@ -122,9 +129,9 @@ def search_list(mylist, namea, nameb):
 				logfile.write('\n')
 		x = x + 1
 	return flag
-	#done search_list()
+	# done search_list()
 
-#find next empty spot in list
+# find next empty spot in list
 def find_next_open(mylist):
 	x = 0 
 	flag = True
@@ -133,9 +140,10 @@ def find_next_open(mylist):
 			nextopenspot = x
 			flag = False
 		x = x + 1
-	#done find_next_open()
+	return
+	# done find_next_open()
 
-
+# this function creates the session for the users and calls most other functions
 def client_exchange(sessionlist, ServerS, ServerPass):
 	global logfile
 	global i
