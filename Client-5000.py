@@ -72,6 +72,7 @@ def check_key():
 def create_key(server_key):
 	global ClientA
 	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.key'
+	pubkeypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.pubkey'
 	serverkeypath = os.path.expanduser('~') + '/.hermes/server.pub'
 	# Creates and writes client key
 	print "New Password For Key: "
@@ -81,11 +82,16 @@ def create_key(server_key):
 	dumpfile = open(keypath, 'w')
 	dumpfile.write(export_key)
 	dumpfile.close
+	# Writes the pubkey to a file
+	pubkey = key.publickey().exportKey()
+	dumpfile = open(pubkeypath, 'w')
+	dumpfile.write(pubkey)
+	dumpfile.close
 	# Writes server key public ket to file
 	dumpfile = open(serverkeypath, 'w')
 	dumpfile.write(server_key)
 	dumpfile.close
-	return
+	return pubkey
 	# end create_key()
 
 # Loads the key into a variable for use with the proper password
@@ -241,12 +247,12 @@ def server_exchange(ServerAddr):
 	# recv server_pub_key
 	server_pub_key = s.recv(4096)
 	if not check_key():
-		create_key(server_pub_key)
+		send_data_tmp2 = create_key(server_pub_key)
 	# Loading private key to variable
 	key = load_key()
 	# Loading server public key to variable
 	serverkey = load_server_key()
-	send_data_tmp2 = key.publickey().exportKey()
+	#send_data_tmp2 = key.publickey().exportKey()
 	# Sending array with connection info
 	s.send(pickle.dumps(senddata))
 	# ACK from server
