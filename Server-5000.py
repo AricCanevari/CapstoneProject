@@ -112,10 +112,7 @@ def create_server_connection():
 
 # Searches the list for the username
 def search_list(mylist, namea, nameb):
-	global logfile
-	global listlength
-	global i
-	global nextopenspot
+	global logfile, listlength, i, nextopenspot
 	flag = False
 	x = 0
 	while x < listlength:
@@ -145,8 +142,7 @@ def find_next_open(mylist):
 
 # this function creates the session for the users and calls most other functions
 def client_exchange(sessionlist, ServerS, ServerPass):
-	global logfile
-	global i
+	global logfile, i
 	if not check_key():
 		print "going to create_key"
 		create_key(ServerPass)
