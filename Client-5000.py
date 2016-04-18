@@ -73,6 +73,7 @@ def create_key(server_key):
 	global ClientA
 	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.key'
 	serverkeypath = os.path.expanduser('~') + '/.hermes/server.pub'
+	# Creates and writes client key
 	print "New Password For Key: "
 	password = raw_input()
 	key = RSA.generate(2048)
@@ -80,6 +81,7 @@ def create_key(server_key):
 	dumpfile = open(keypath, 'w')
 	dumpfile.write(export_key)
 	dumpfile.close
+	# Writes server key public ket to file
 	dumpfile = open(serverkeypath, 'w')
 	dumpfile.write(server_key)
 	dumpfile.close
@@ -132,7 +134,7 @@ def server_socket(Port):
 	return ServerS
 	# end server_socket()
 	
-#Used from the threading statment. It will continuously wait for a message
+# Used from the threading statment. It will continuously wait for a message
 def recv_thread(mssg):
 	global ClientB, ClientA, CS, Client, cipher1, cipher2, quit
 	data_enc = ""
@@ -161,9 +163,9 @@ def recv_thread(mssg):
 			print "[" + ClientB + "]: " + data_unenc
 			sys.stdout.write(prompt + readline.get_line_buffer())
 			sys.stdout.flush()
-	#end recv_thread()
+	# end recv_thread()
 
-#Used from the threading statment. It will send whenever it gets a message
+# Used from the threading statment. It will send whenever it gets a message
 def send_thread(mssg):
 	global ClientA, CS, ServerS, cipher1, cipher2, quit
 	data = ""
@@ -180,9 +182,9 @@ def send_thread(mssg):
 			CS.send(cipher2.encrypt(data))
 			if (data == "quit()"):
 				quit = True
-	#end send_thread()
+	# end send_thread()
 
-#Handles the Server Portion of the messanger 
+# Handles the Server Portion of the messanger 
 # | Server | ip | port | IV | Key | 
 def mess_server(sessionlist):
 	global logfile, Client
@@ -191,7 +193,7 @@ def mess_server(sessionlist):
 	logfile.write("Connected to: ")
 	logfile.write(repr(ClientAddr))
 	logfile.write("\n")
-	#Create threads for sending and recv messages
+	# Create threads for sending and recv messages
 	Client.send("Connection Established")
 	print "Connection Established"
 	logfile.write("Starting Threads\n")
@@ -203,15 +205,15 @@ def mess_server(sessionlist):
 	t2.join()
 	ServerS.close()
 	logfile.write("Server Socket Closed\n")
-	#end mess_server()
+	# end mess_server()
 
-#Handles the Client Portion of the messanger
+# Handles the Client Portion of the messanger
 # | Server | ip | port | IV | Key | 	
 def mess_client(sessionlist):
 	global logfile, CS
 	CS = client_socket(sessionlist[1], sessionlist[2])
 	print CS.recv(1024)
-	#Create threads for sending and recv messages
+	# Create threads for sending and recv messages
 	t1 = Thread(target=recv_thread, args=(2,))
 	t2 = Thread(target=send_thread, args=(2,))
 	t1.start()
@@ -220,12 +222,12 @@ def mess_client(sessionlist):
 	t2.join()
 	CS.close()
 	logfile.write("All sockets Closed\n")
-	#end mess_client()
+	# end mess_client()
 
-#Exchange between server and clients
+# Exchange between server and clients
 def server_exchange(ServerAddr):
 	global logfile, ClientA, ClientB, cipher1, cipher2
-	#order is UserA, UserB, ClientIP
+	# order is UserA, UserB, ClientIP
 	senddata = ["" for x in range(3)]
 	print "Enter Your User Name:"
 	senddata[0] = raw_input('>')
@@ -234,31 +236,31 @@ def server_exchange(ServerAddr):
 	senddata[1] = raw_input('>')
 	ClientB = senddata[1]
 	senddata[2] = get_local_ip()
-	#Creating socket to Server
+	# Creating socket to Server
 	s = client_socket(ServerAddr, 5000)
-	#recv server_pub_key
+	# recv server_pub_key
 	server_pub_key = s.recv(4096)
 	if not check_key():
 		create_key(server_pub_key)
-	#Loading private key to variable
+	# Loading private key to variable
 	key = load_key()
-	#Loading server public key to variable
+	# Loading server public key to variable
 	serverkey = load_server_key()
 	send_data_tmp2 = key.publickey().exportKey()
-	#Sending array with connection info
+	# Sending array with connection info
 	s.send(pickle.dumps(senddata))
-	#ACK from server
+	# ACK from server
 	tmp = s.recv(1024)
-	#Sending our public key
+	# Sending our public key
 	s.send(send_data_tmp2)
 	# | Server | ip | port | IV | Key |
 	recvdata = ["" for x in range(5)]
 	recv_data_tmp = s.recv(4096) 
 	recvdata = pickle.loads(key.decrypt(pickle.loads(recv_data_tmp)))
-	#creating ciphers
+	# creating ciphers
 	cipher1 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[3])
 	cipher2 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[3])
-	#if recvdata[0] true: mess_server() else: mess_client()
+	# if recvdata[0] true: mess_server() else: mess_client()
 	logfile.write(str(recvdata))
 	logfile.write("\n")
 	if recvdata[0] == True:
@@ -266,7 +268,7 @@ def server_exchange(ServerAddr):
 	if recvdata[0] == False:
 		mess_client(recvdata)
 	s.close()
-	#end server_exchange()
+	# end server_exchange()
 
 ##############################################
 #                                            #
