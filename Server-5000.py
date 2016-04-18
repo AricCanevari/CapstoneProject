@@ -65,12 +65,12 @@ def check_client_key(ClientA, exportedkey):
 	# end check_client_key()
 
 # if key does not exist it is created
-def create_key():
+def create_key(ServerPass):
 	serverkeypath = os.path.expanduser('~') + '/.zeus/server.key'
 	dumpfile = open(serverkeypath, 'w')
 	key = RSA.generate(2048)
-	print "Enter New Password:"
-	ServerPass = raw_input()
+#	print "Enter New Password:"
+#	ServerPass = raw_input()
 	server_key = key.exportKey('PEM', passphrase=ServerPass, pkcs=1) 
 	dumpfile.write(server_key)
 	dumpfile.close
@@ -149,7 +149,7 @@ def client_exchange(sessionlist, ServerS, ServerPass):
 	global i
 	if not check_key():
 		print "going to create_key"
-		create_key()
+		create_key(ServerPass)
 	serverkey = load_key(ServerPass)
 	#Accept a client
 	Client, ClientAddr = ServerS.accept()
