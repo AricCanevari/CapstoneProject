@@ -45,6 +45,7 @@ def check_key():
 	global logfile, ClientA
 	logfile.write('Checking For Key\n')
 	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.key'
+	pubkeypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.pubkey'
 	serverkeypath = os.path.expanduser('~') + '/.hermes/server.pub'
 	logfile.write('Full Key Path: ')
 	logfile.write(keypath)
@@ -59,9 +60,15 @@ def check_key():
 		keyfound = False
 	else:
 		logfile.write('Found Full Key\n')
+	if not os.path.exists(pubkeypath):
+		logfile.write('Full Key Not Found\n')
+		filekey = open(pubkeypath, 'a+')
+		keyfound = False
+	else:
+		logfile.write('Found Full Key\n')
 	if not os.path.exists(serverkeypath):
 		logfile.write('Server Key Not Found\n')
-		filekey = open(keypath, 'a+')
+		filekey = open(serverkeypath, 'a+')
 		keyfound = False
 	else:
 		logfile.write('Found Server Key\n')
