@@ -118,9 +118,9 @@ def load_pub_key():
 	global ClientA
 	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.pubkey'
 	importfile = open(keypath, 'r')
-	pubkey = RSA.importKey(importfile.read())
+	key = RSA.importKey(importfile.read())
 	importfile.close()
-	return pubkey
+	return key
 	
 # Loads the server key into a variable for use
 def load_server_key():
