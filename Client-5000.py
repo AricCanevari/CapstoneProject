@@ -10,6 +10,7 @@ from threading import Thread
 from Crypto import Random
 from Crypto.Cipher import AES
 from Crypto.PublicKey import RSA
+from Crypto.Hash import MD5
 
 #Global variables
 logfile = ""
@@ -290,7 +291,10 @@ def server_exchange(ServerAddr):
 	recvdata = pickle.loads(key.decrypt(pickle.loads(recv_data_tmp)))
 	# creating ciphers
 	cipher1 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[3])
-	cipher2 = AES.new(recvdata[4], AES.MODE_CFB, recvdata[3])
+	#hashing they key and iv so the second cipher is different and cannot be decrypted
+	hashkey = MD5.new(recvdata[4]).digest()
+	hashiv = MD5.new(recvdata[3]).digest()
+	cipher2 = AES.new(hashkey, AES.MODE_CFB, hashiv)
 	# if recvdata[0] true: mess_server() else: mess_client()
 	logfile.write(str(recvdata))
 	logfile.write("\n")
