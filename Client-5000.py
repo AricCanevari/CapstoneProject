@@ -95,9 +95,14 @@ def create_key(server_key):
 	dumpfile.write(pubkey)
 	dumpfile.close
 	# Writes server key public ket to file
-	dumpfile = open(serverkeypath, 'w')
-	dumpfile.write(server_key)
-	dumpfile.close
+	print "The following Server Public Key will be created: \n"
+	print server_key, "\n"
+	print "Please Type 'Yes' to accept this key: "
+	flag = raw_input()
+	if flag == 'Yes':
+		dumpfile = open(serverkeypath, 'w')
+		dumpfile.write(server_key)
+		dumpfile.close
 	return pubkey
 	# end create_key()
 
@@ -123,10 +128,14 @@ def load_pub_key():
 	return key
 	
 # Loads the server key into a variable for use
-def load_server_key():
+def load_server_key(passed_key):
 	serverkeypath = os.path.expanduser('~') + '/.hermes/server.pub'
 	importfile = open(serverkeypath, 'r')
-	key = RSA.importKey(importfile.read())
+	key = importfile.read()
+	if passed_key == key:
+		key = RSA.importKey(key)
+	else:
+		print "Error: Server Key does not match! Possible Man in the Middle!"
 	importfile.close()
 	return key
 	# end load_server_key()
@@ -267,7 +276,7 @@ def server_exchange(ServerAddr):
 	# Loading private key to variable
 	key = load_key()
 	# Loading server public key to variable
-	serverkey = load_server_key()
+	serverkey = load_server_key(server_pub_key)
 	send_data_tmp2 = load_pub_key()
 	# Sending array with connection info
 	s.send(pickle.dumps(senddata))
