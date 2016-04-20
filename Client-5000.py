@@ -104,12 +104,13 @@ def create_key(server_key, s):
 		dumpfile = open(serverkeypath, 'w')
 		dumpfile.write(server_key)
 		dumpfile.close
-	else:
-		print "Key not accepted."
-		logfile.write("You did not accept the key.\n")
-		s.close()
-		logfile.write("Socket to server closed.\n")
-		sys.exit(1)
+#causes server to close, not that good of a solution
+#	else:
+#		print "Key not accepted."
+#		logfile.write("You did not accept the key.\n")
+#		s.close()
+#		logfile.write("Socket to server closed.\n")
+#		sys.exit(1)
 	return pubkey
 	# end create_key()
 
