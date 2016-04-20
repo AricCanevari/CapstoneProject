@@ -77,7 +77,7 @@ def check_key():
 	# done check_key()
 
 # Creates the client key with a password and writes the server public key to a file
-def create_key(server_key):
+def create_key(server_key, s):
 	global ClientA
 	keypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.key'
 	pubkeypath = os.path.expanduser('~') + '/.hermes/' + ClientA + '.pubkey'
@@ -107,8 +107,9 @@ def create_key(server_key):
 	else:
 		print "Key not accepted."
 		logfile.write("You did not accept the key.\n")
-		quit = True
-		#sys.exit(1)
+		s.close()
+		logfile.write("Socket to server closed.\n")
+		sys.exit(1)
 	return pubkey
 	# end create_key()
 
@@ -278,7 +279,7 @@ def server_exchange(ServerAddr):
 	# recv server_pub_key
 	server_pub_key = s.recv(4096)
 	if not check_key():
-		send_data_tmp2 = create_key(server_pub_key)
+		send_data_tmp2 = create_key(server_pub_key, s)
 	# Loading private key to variable
 	key = load_key()
 	# Loading server public key to variable
