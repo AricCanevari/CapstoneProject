@@ -107,7 +107,8 @@ def create_key(server_key):
 	else:
 		print "Key not accepted."
 		logfile.write("You did not accept the key.\n")
-		sys.exit(1)
+		quit = True
+		#sys.exit(1)
 	return pubkey
 	# end create_key()
 
