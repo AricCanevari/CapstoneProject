@@ -190,6 +190,7 @@ def recv_thread(mssg):
 				quit = True
 				break
 			sys.stdout.write('\r'+' '*(len(readline.get_line_buffer())+2)+'\r')
+			print "[" + ClientB + " Encrypted]: " + data_enc
 			print "[" + ClientB + "]: " + data_unenc
 			sys.stdout.write(prompt + readline.get_line_buffer())
 			sys.stdout.flush()
@@ -202,6 +203,7 @@ def recv_thread(mssg):
 				quit = True
 				break
 			sys.stdout.write('\r'+' '*(len(readline.get_line_buffer())+2)+'\r')
+			print "[" + ClientB + " Encrypted]: " + data_enc
 			print "[" + ClientB + "]: " + data_unenc
 			sys.stdout.write(prompt + readline.get_line_buffer())
 			sys.stdout.flush()
