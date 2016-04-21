@@ -105,7 +105,7 @@ def create_server_connection():
 	logfile.write('Socket built succesfully\n')
 	Port = 5000
 	Address = get_local_ip()
-	setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+	ServerS.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 	ServerS.bind((Address, Port))
 	ServerS.listen(5)
 	return ServerS
