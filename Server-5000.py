@@ -148,6 +148,7 @@ def client_exchange(sessionlist, ServerS, ServerPass):
 		create_key(ServerPass)
 	serverkey = load_key(ServerPass)
 	#Accept a client
+	print "Waiting for Connection\n"
 	Client, ClientAddr = ServerS.accept()
 	logfile.write("\nConnected to: ")
 	logfile.write(repr(ClientAddr))
