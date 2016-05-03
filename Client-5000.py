@@ -293,7 +293,7 @@ def server_exchange(ServerAddr):
 	serverkey = load_server_key(server_pub_key)
 	send_data_tmp2 = load_pub_key()
 	# Sending array with connection info
-	s.send(pickle.dumps(serverkey.encrypt(pickle.dumps(senddata))))
+	s.send(pickle.dumps(serverkey.encrypt(pickle.dumps(senddata),32)))
 	# ACK from server
 	tmp = s.recv(1024)
 	# Sending our public key
