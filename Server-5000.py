@@ -162,7 +162,7 @@ def client_exchange(sessionlist, ServerS, ServerPass):
 	Client.send("garbage")
 	recvkey = Client.recv(4096)
 	print recvkey
-	recvdata= pickle.loads(recv_data_tmp)
+	recvdata= pickle.loads(serverkey.decrypt(pickle.loads(recv_data_tmp)))
 	print '\n', recvkey, '\n'
 	check_client_key(recvdata[0], recvkey)
 	clientkey = load_client_key(recvdata[0])
