@@ -11,6 +11,8 @@ After the prerequisites and the install, you are ready to start the program. Fir
 
 With the server started and waiting for connections, we will move to ClientA. ClientA will install the program the same way and start the client code by entering “python Client-5000.py” into the terminal in the “CapstoneProject” directory. The program will ask for the current clients user name, which will be “ClientA”, and the user name of the client to connect to, which will be “ClientB”. If a key and password has not been created it will ask the user to create a password, and it will also ask the user to accept the server key. This is an important point of trust, just like OpenSSH has. Client B goes through the same steps on their side and after the connection they should be able to communicate freely. For screenshots please refer to the Results section. 
 
+Security Notation:
+
 Future Works:
 
 
