@@ -8,5 +8,5 @@ while True:
 	s.send("Attack!!")  
 	print "Attack Successful!"
 	s.close()
-except socket.error:
+    except socket.error:
 	print "Error: No Connection Found"
