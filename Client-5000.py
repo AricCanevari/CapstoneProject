@@ -297,7 +297,7 @@ def server_exchange(ServerAddr):
 	# ACK from server
 	tmp = s.recv(1024)
 	# Sending our public key
-	s.send(pickle.dumps(send_data_tmp2))
+	s.send(send_data_tmp2)
 	# | Server | ip | port | IV | Key |
 	recvdata = ["" for x in range(5)]
 	recv_data_tmp = s.recv(4096) 
