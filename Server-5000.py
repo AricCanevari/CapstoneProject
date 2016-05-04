@@ -160,10 +160,9 @@ def client_exchange(sessionlist, ServerS, ServerPass):
 	recvdata = ["" for x in range(3)]
 	recv_data_tmp = Client.recv(4096)
 	Client.send("1738")
-	recvkeytmp = Client.recv(4096)
+	recvkey = Client.recv(4096)
 	recvdata= pickle.loads(serverkey.decrypt(pickle.loads(recv_data_tmp)))
 	#print '\n', recvkey, '\n'
-	recvkey = pickle.loads(serverkey.decrypt(pickle.loads(recvkeytmp)))
 	print "Receved Key From " + recvdata[0]
 	check_client_key(recvdata[0], recvkey)
 	clientkey = load_client_key(recvdata[0])
