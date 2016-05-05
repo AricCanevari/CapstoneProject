@@ -2,7 +2,7 @@
 import os
 import socket
 import pickle
-import time
+#import time
 import readline
 import sys
 from threading import Thread
