@@ -210,7 +210,7 @@ def recv_thread(mssg):
 
 # Used from the threading statment. It will send whenever it gets a message
 def send_thread(mssg):
-	global ClientA, CS, ServerS, cipher1, cipher2, quit
+	global ClientA, CS, Client, ServerS, cipher1, cipher2, quit
 	data = ""
 	prompt = "[" + ClientA + "]: "
 	if (mssg == 1):
