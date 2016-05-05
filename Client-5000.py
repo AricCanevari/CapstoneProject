@@ -104,8 +104,6 @@ def create_key(server_key, s):
 		dumpfile.close
 #causes server to close, not that good of a solution
 	else:
-	#	os.remove(serverkeypath) #I dont think we need this because it should not write to the file if it says no. 
-					 #If another user is using the key, it breaks it. 
 		print "Key not accepted."
 		logfile.write("You did not accept the key.\n")
 		s.close()
