@@ -68,8 +68,6 @@ def create_key(ServerPass):
 	serverkeypath = os.path.expanduser('~') + '/.zeus/server.key'
 	dumpfile = open(serverkeypath, 'w')
 	key = RSA.generate(2048)
-#	print "Enter New Password:"
-#	ServerPass = raw_input()
 	server_key = key.exportKey('PEM', passphrase=ServerPass, pkcs=1) 
 	dumpfile.write(server_key)
 	dumpfile.close
