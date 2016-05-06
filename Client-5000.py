@@ -1,8 +1,4 @@
 #!/usr/bin/env python
-#
-#Comments for demo 
-#
-#
 ##################
 import os
 import socket
